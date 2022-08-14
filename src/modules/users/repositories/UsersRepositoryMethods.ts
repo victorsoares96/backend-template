@@ -9,9 +9,9 @@ export interface FindOptions {
 }
 export interface UsersRepositoryMethods {
   create(data: CreateUserDTO): Promise<User>;
-  findOne(data: FindOneUserDTO): Promise<User | undefined>;
+  findOne(data: FindOneUserDTO): Promise<User | null>;
   findMany(data: FindManyUserDTO): Promise<[User[], number]>;
-  findByIds(ids: string[], options?: FindOptions): Promise<User[] | undefined>;
+  findByIds(ids: string[], options?: FindOptions): Promise<User[] | null>;
   update(data: UserDTO[]): Promise<User[]>;
   recover(data: UserDTO[]): Promise<User[]>;
   remove(data: UserDTO[]): Promise<User[]>;

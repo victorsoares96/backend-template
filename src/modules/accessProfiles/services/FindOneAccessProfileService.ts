@@ -24,7 +24,7 @@ export class FindOneAccessProfileService {
 
   public async execute(
     filters: FindOneAccessProfileDTO,
-  ): Promise<AccessProfile | undefined> {
+  ): Promise<AccessProfile | null> {
     if (
       Object.keys(filters).length === 0 ||
       Object.values(filters).some(value => !value)

@@ -22,7 +22,7 @@
     "prettier:format": "prettier --write .",
     "lint": "eslint ./src/ --ext .ts,.js,.json",
     "lint:fix": "eslint --fix ./src/ --ext .ts,.js,.json",
-    "type-check": "tsc -p tsconfig.json --noEmit",
+    "type-check": "tsc -p tsconfig.build.json --noEmit --pretty",
     "get-db-credentials": "node ./src/scripts/get-db-credentials.js",
     "get_db_backup-id": "node ./src/scripts/get_db_backup-id.js"
   },
@@ -41,11 +41,12 @@
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.6.0",
-    "typeorm": "^0.2.38"
+    "typeorm": "^0.3.0"
   },
   "devDependencies": {
     "@babel/cli": "7.18.6",
     "@babel/core": "7.18.6",
+    "@babel/helper-get-function-arity": "^7.16.7",
     "@babel/node": "7.18.6",
     "@babel/plugin-proposal-decorators": "7.18.6",
     "@babel/preset-env": "7.18.6",
