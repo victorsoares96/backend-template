@@ -34,7 +34,7 @@ export class PermissionRepository implements PermissionsRepositoryMethods {
 
   public async findOne(
     filters: FindOnePermissionDTO,
-  ): Promise<Permission | undefined> {
+  ): Promise<Permission | null> {
     const onlyValueFilters = Object.entries(filters).filter(
       ([, value]) => value,
     );
