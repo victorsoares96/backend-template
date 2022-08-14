@@ -1,4 +1,4 @@
-import { getRepository, ILike, Repository } from 'typeorm';
+import { getRepository, ILike, In, Repository } from 'typeorm';
 
 import {
   AccessProfilesRepositoryMethods,
@@ -44,7 +44,7 @@ export class AccessProfileRepository
 
   public async findOne(
     filters: FindOneAccessProfileDTO,
-  ): Promise<AccessProfile | undefined> {
+  ): Promise<AccessProfile | null> {
     const { isDeleted = false } = filters;
 
     const onlyValueFilters = Object.entries(filters).filter(
@@ -110,12 +110,16 @@ export class AccessProfileRepository
   public async findByIds(
     ids: string[],
     options?: FindOptions,
-  ): Promise<AccessProfile[] | undefined> {
-    const findAccessProfiles = await this.ormRepository.findByIds(ids, {
-      withDeleted: options ? options.widthDeleted : false,
+  ): Promise<AccessProfile[] | null> {
+    const { withDeleted = false } = options || {};
+
+    const findAccessProfiles = await this.ormRepository.find({
+      where: { id: In(ids) },
+      withDeleted,
     });
+
     if (findAccessProfiles.length === ids.length) return findAccessProfiles;
-    return undefined;
+    return null;
   }
 
   public async update(data: AccessProfileDTO[]): Promise<AccessProfile[]> {

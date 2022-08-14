@@ -69,6 +69,6 @@ describe('FindOnePermission', () => {
         })
         .then(res => res)
         .catch(err => err),
-    ).toEqual(undefined);
+    ).toEqual(null);
   });
 });
