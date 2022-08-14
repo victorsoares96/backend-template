@@ -25,7 +25,7 @@ export class FindOnePermissionService {
 
   public async execute(
     filters: FindOnePermissionDTO,
-  ): Promise<Permission | undefined> {
+  ): Promise<Permission | null> {
     if (
       Object.keys(filters).length === 0 ||
       Object.values(filters).some(value => !value)
