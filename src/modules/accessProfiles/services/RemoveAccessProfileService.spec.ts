@@ -65,8 +65,6 @@ describe('RemoveAccessProfile', () => {
   it('should be able to remove a access profile', async () => {
     await removeAccessProfile.execute({ ids: '1' });
 
-    expect(await findOneAccessProfile.execute({ name: 'Admin' })).toEqual(
-      undefined,
-    );
+    expect(await findOneAccessProfile.execute({ name: 'Admin' })).toEqual(null);
   });
 });

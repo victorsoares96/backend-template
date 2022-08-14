@@ -22,7 +22,7 @@ export class FindOneUserService {
     private usersRepository: UsersRepositoryMethods,
   ) {}
 
-  public async execute(filters: FindOneUserDTO): Promise<User | undefined> {
+  public async execute(filters: FindOneUserDTO): Promise<User | null> {
     if (
       Object.keys(filters).length === 0 ||
       Object.values(filters).some(value => !value)

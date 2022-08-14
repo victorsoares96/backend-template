@@ -83,8 +83,6 @@ describe('RemoveUser', () => {
   it('should be able to remove a user', async () => {
     await removeUser.execute({ ids: '1' });
 
-    expect(await findOneUser.execute({ username: 'foobar' })).toEqual(
-      undefined,
-    );
+    expect(await findOneUser.execute({ username: 'foobar' })).toEqual(null);
   });
 });
