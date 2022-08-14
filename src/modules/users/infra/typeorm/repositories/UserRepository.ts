@@ -1,4 +1,10 @@
-import { EntityRepository, getRepository, ILike, Repository } from 'typeorm';
+import {
+  EntityRepository,
+  getRepository,
+  ILike,
+  In,
+  Repository,
+} from 'typeorm';
 
 import {
   FindOptions,
@@ -37,7 +43,7 @@ export class UserRepository implements UsersRepositoryMethods {
     return user;
   }
 
-  public async findOne(filters: FindOneUserDTO): Promise<User | undefined> {
+  public async findOne(filters: FindOneUserDTO): Promise<User | null> {
     const { isDeleted = false } = filters;
 
     const onlyValueFilters = Object.entries(filters).filter(
@@ -105,12 +111,16 @@ export class UserRepository implements UsersRepositoryMethods {
   public async findByIds(
     ids: string[],
     options?: FindOptions,
-  ): Promise<User[] | undefined> {
-    const findUsers = await this.ormRepository.findByIds(ids, {
-      withDeleted: options ? options.withDeleted : false,
+  ): Promise<User[] | null> {
+    const { withDeleted = false } = options || {};
+
+    const findUsers = await this.ormRepository.find({
+      where: { id: In(ids) },
+      withDeleted,
     });
+
     if (findUsers.length === ids.length) return findUsers;
-    return undefined;
+    return null;
   }
 
   public async update(data: UserDTO[]): Promise<User[]> {

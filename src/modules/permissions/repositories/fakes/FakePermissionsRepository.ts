@@ -31,9 +31,7 @@ export class FakePermissionsRepository implements PermissionsRepositoryMethods {
     return permission;
   }
 
-  public findOne(
-    filters: FindOnePermissionDTO,
-  ): Promise<Permission | undefined> {
+  public findOne(filters: FindOnePermissionDTO): Promise<Permission | null> {
     return new Promise(resolve => {
       const permission = this.permissions.find(item => {
         for (const filter in filters) {
@@ -48,7 +46,7 @@ export class FakePermissionsRepository implements PermissionsRepositoryMethods {
         return true;
       });
 
-      resolve(permission);
+      resolve(permission || null);
     });
   }
 
