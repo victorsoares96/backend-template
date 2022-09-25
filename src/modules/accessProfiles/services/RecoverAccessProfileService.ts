@@ -30,7 +30,7 @@ export class RecoverAccessProfileService {
 
     const accessProfiles = await this.accessProfilesRepository.findByIds(
       accessProfilesIds,
-      { widthDeleted: true },
+      { withDeleted: true },
     );
 
     if (!accessProfiles) throw new AppError(EAccessProfileError.NotFound);

@@ -41,7 +41,7 @@ export class FakeAccessProfileRepository
 
   public findOne(
     filters: FindOneAccessProfileDTO,
-  ): Promise<AccessProfile | undefined> {
+  ): Promise<AccessProfile | null> {
     return new Promise(resolve => {
       const accessProfile = this.accessProfiles.find(item => {
         for (const filter in filters) {
@@ -50,13 +50,14 @@ export class FakeAccessProfileRepository
             item[filter] === undefined ||
             // @ts-ignore
             !item[filter].includes(filters[filter])
-          )
+          ) {
             return false;
+          }
         }
         return true;
       });
 
-      resolve(accessProfile);
+      resolve(accessProfile || null);
     });
   }
 
@@ -81,11 +82,11 @@ export class FakeAccessProfileRepository
     });
   }
 
-  public async findByIds(ids: string[]): Promise<AccessProfile[] | undefined> {
+  public async findByIds(ids: string[]): Promise<AccessProfile[] | null> {
     const findAccessProfiles = ids.map(id =>
       this.accessProfiles.find(accessProfile => accessProfile.id === id),
     );
-    if (findAccessProfiles.some(el => !el)) return undefined;
+    if (findAccessProfiles.some(el => !el)) return null;
     return findAccessProfiles as AccessProfile[];
   }
 

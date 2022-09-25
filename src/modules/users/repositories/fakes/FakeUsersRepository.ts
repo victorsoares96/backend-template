@@ -23,7 +23,7 @@ export class FakeUsersRepository implements UsersRepositoryMethods {
     return user;
   }
 
-  public findOne(filters: FindOneUserDTO): Promise<User | undefined> {
+  public findOne(filters: FindOneUserDTO): Promise<User | null> {
     return new Promise(resolve => {
       const user = this.users.find(item => {
         for (const filter in filters) {
@@ -38,7 +38,7 @@ export class FakeUsersRepository implements UsersRepositoryMethods {
         return true;
       });
 
-      resolve(user);
+      resolve(user || null);
     });
   }
 
@@ -63,9 +63,9 @@ export class FakeUsersRepository implements UsersRepositoryMethods {
     });
   }
 
-  public async findByIds(ids: string[]): Promise<User[] | undefined> {
+  public async findByIds(ids: string[]): Promise<User[] | null> {
     const findUsers = ids.map(id => this.users.find(user => user.id === id));
-    if (findUsers.some(el => !el)) return undefined;
+    if (findUsers.some(el => !el)) return null;
     return findUsers as User[];
   }
 
