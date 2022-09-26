@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import { AccessProfilesController } from '@modules/accessProfiles/infra/http/controllers/AccessProfilesController';
 import { is } from '@shared/infra/http/middlewares/ensureAuthorized';
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import ensureAuthenticated from '@modules/session/infra/http/middlewares/ensureAuthenticated';
 import {
   CAN_CREATE_ACCESS_PROFILE,
   CAN_INACTIVE_ACCESS_PROFILE,

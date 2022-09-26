@@ -3,7 +3,7 @@ import { CreateAccessProfileService } from '@modules/accessProfiles/services/Cre
 import { FakePermissionsRepository } from '@modules/permissions/repositories/fakes/FakePermissionsRepository';
 import { CreatePermissionService } from '@modules/permissions/services/CreatePermissionService';
 import { AppError } from '@shared/errors/AppError';
-import { FakeHashProvider } from '../providers/HashProvider/fakes/FakeHashProvider';
+import { FakeHashProvider } from '../../session/providers/HashProvider/fakes/FakeHashProvider';
 import { FakeUsersRepository } from '../repositories/fakes/FakeUsersRepository';
 import { ESessionError } from '../utils/enums/e-errors';
 import { EUserStatus } from '../utils/enums/e-user';

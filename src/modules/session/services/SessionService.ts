@@ -1,13 +1,14 @@
-import { sign } from 'jsonwebtoken';
 import { injectable, inject } from 'tsyringe';
 
-import authConfig from '@config/auth';
 import { AppError } from '@shared/errors/AppError';
 
 import { User } from '../infra/typeorm/entities/User';
 import { UsersRepositoryMethods } from '../repositories/UsersRepositoryMethods';
 import { ESessionError } from '../utils/enums/e-errors';
 import { HashProviderMethods } from '../providers/HashProvider/models/HashProviderMethods';
+import { RefreshTokenRepositoryMethods } from '../repositories/RefreshTokenRepositoryMethods';
+import { RefreshTokenDTO } from '../dtos/RefreshTokenDTO';
+import { TokenProviderMethods } from '../providers/TokenProvider';
 
 export interface Request {
   username: string;
@@ -17,6 +18,7 @@ export interface Request {
 interface Response {
   user: User;
   token: string;
+  refreshToken: RefreshTokenDTO;
 }
 
 @injectable()
@@ -24,8 +26,12 @@ export class SessionService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: UsersRepositoryMethods,
+    @inject('RefreshTokensRepository')
+    private refreshTokensRepository: RefreshTokenRepositoryMethods,
     @inject('HashProvider')
     private hashProvider: HashProviderMethods,
+    @inject('TokenProvider')
+    private tokenProvider: TokenProviderMethods,
   ) {}
 
   public async execute({ username, password }: Request): Promise<Response> {
@@ -48,10 +54,10 @@ export class SessionService {
         401,
       );
 
-    const { secret, expiresIn } = authConfig.jwt;
-    const token = sign({ name: user.fullName }, secret, {
-      subject: String(user.id),
-      expiresIn,
+    const token = await this.tokenProvider.generate(user.fullName, user.id);
+
+    const refreshToken = await this.refreshTokensRepository.create({
+      user,
     });
 
     user.lastAccess = new Date().toISOString();
@@ -60,6 +66,6 @@ export class SessionService {
     // @ts-ignore
     delete user.password;
 
-    return { user, token };
+    return { user, token, refreshToken };
   }
 }

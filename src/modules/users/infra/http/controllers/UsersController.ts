@@ -30,7 +30,7 @@ export class UsersController {
       accessProfileId,
     } = request.body as CreateRequest;
 
-    const { name, id } = request.user;
+    // const { name, id } = request.user;
 
     const createUser = container.resolve(CreateUserService);
     const user = await createUser.execute({
@@ -42,10 +42,10 @@ export class UsersController {
       status: EUserStatus.Active,
       avatar,
       accessProfileId,
-      createdById: id,
-      createdByName: name,
-      updatedById: id,
-      updatedByName: name,
+      createdById: '0',
+      createdByName: 'name',
+      updatedById: '0',
+      updatedByName: 'name',
       lastAccess: '',
     });
 

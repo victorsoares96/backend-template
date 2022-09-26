@@ -18,7 +18,19 @@ import { AccessProfileRepository } from '@modules/accessProfiles/infra/typeorm/r
 import { UsersRepositoryMethods } from '@modules/users/repositories/UsersRepositoryMethods';
 import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
 
-import { sessionsRouter } from '@modules/users/infra/http/routes/sessions.routes';
+import { RefreshTokenRepositoryMethods } from '@modules/session/repositories/RefreshTokenRepositoryMethods';
+import { RefreshTokenRepository } from '@modules/session/infra/typeorm/repositories/RefreshTokenRepository';
+
+import {
+  BCryptHashProvider,
+  HashProviderMethods,
+} from '@modules/session/providers/HashProvider';
+import {
+  TokenProviderMethods,
+  TokenProvider,
+} from '@modules/users/providers/TokenProvider';
+
+import { sessionsRouter } from '@modules/session/infra/http/routes/sessions.routes';
 import { usersRouter } from '@modules/users/infra/http/routes/users.routes';
 import { accessProfilesRouter } from '@modules/accessProfiles/infra/http/routes/access-profiles.routes';
 import { permissionsRouter } from '@modules/permissions/infra/http/routes/permissions.routes';
@@ -59,6 +71,21 @@ class App {
     container.registerSingleton<UsersRepositoryMethods>(
       'UsersRepository',
       UserRepository,
+    );
+
+    container.registerSingleton<RefreshTokenRepositoryMethods>(
+      'RefreshTokensRepository',
+      RefreshTokenRepository,
+    );
+
+    container.registerSingleton<HashProviderMethods>(
+      'HashProvider',
+      BCryptHashProvider,
+    );
+
+    container.registerSingleton<TokenProviderMethods>(
+      'TokenProvider',
+      TokenProvider,
     );
   }
 
