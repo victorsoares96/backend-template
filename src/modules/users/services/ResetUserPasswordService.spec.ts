@@ -2,6 +2,7 @@ import { FakeAccessProfileRepository } from '@modules/accessProfiles/repositorie
 import { CreateAccessProfileService } from '@modules/accessProfiles/services/CreateAccessProfileService';
 import { FakePermissionsRepository } from '@modules/permissions/repositories/fakes/FakePermissionsRepository';
 import { CreatePermissionService } from '@modules/permissions/services/CreatePermissionService';
+import { SessionService } from '@modules/session/services/SessionService';
 import { AppError } from '@shared/errors/AppError';
 import { FakeHashProvider } from '../../session/providers/HashProvider/fakes/FakeHashProvider';
 import { FakeUsersRepository } from '../repositories/fakes/FakeUsersRepository';
@@ -9,7 +10,6 @@ import { EUserError } from '../utils/enums/e-errors';
 import { EUserStatus } from '../utils/enums/e-user';
 import { CreateUserService } from './CreateUserService';
 import { ResetUserPasswordService } from './ResetUserPasswordService';
-import { SessionService } from './SessionService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let createUser: CreateUserService;
