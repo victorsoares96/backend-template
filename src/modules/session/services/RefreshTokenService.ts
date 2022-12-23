@@ -3,7 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import { AppError } from '@shared/errors/AppError';
 
 import dayjs from 'dayjs';
-import { ESessionError } from '../../users/utils/enums/e-errors';
+import { Error } from '@modules/session/utils/enums/e-errors';
 import { RefreshTokenRepositoryMethods } from '../repositories/RefreshTokenRepositoryMethods';
 import { TokenProviderMethods } from '../providers/TokenProvider';
 import { RefreshTokenDTO } from '../dtos/RefreshTokenDTO';
@@ -32,7 +32,7 @@ export class RefreshTokenService {
     });
 
     if (!refreshToken) {
-      throw new AppError(ESessionError.InvalidRefreshToken);
+      throw new AppError(Error.InvalidRefreshToken, 401);
     }
 
     const refreshTokenExpired = dayjs().isAfter(

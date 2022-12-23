@@ -1,10 +1,10 @@
 import { EntityRepository, getRepository, Repository } from 'typeorm';
 
 import { RefreshTokenRepositoryMethods } from '@modules/session/repositories/RefreshTokenRepositoryMethods';
-import { CreateRefreshTokenDTO } from '@modules/users/dtos/CreateRefreshTokenDTO';
 import dayjs from 'dayjs';
-import { RefreshTokenDTO } from '@modules/users/dtos/RefreshTokenDTO';
-import { FindOneRefreshTokenDTO } from '@modules/users/dtos/FindOneRefreshTokenDTO';
+import { CreateRefreshTokenDTO } from '@modules/session/dtos/CreateRefreshTokenDTO';
+import { RefreshTokenDTO } from '@modules/session/dtos/RefreshTokenDTO';
+import { FindOneRefreshTokenDTO } from '@modules/session/dtos/FindOneRefreshTokenDTO';
 import { RefreshToken } from '../entities/RefreshToken';
 
 @EntityRepository(RefreshToken)
@@ -48,5 +48,9 @@ export class RefreshTokenRepository implements RefreshTokenRepositoryMethods {
   public async remove(data: RefreshToken): Promise<RefreshToken> {
     const [refreshToken] = await this.ormRepository.remove([data]);
     return refreshToken;
+  }
+
+  public async removeAllByUserId(userId: string): Promise<void> {
+    await this.ormRepository.delete({ user: { id: userId } });
   }
 }

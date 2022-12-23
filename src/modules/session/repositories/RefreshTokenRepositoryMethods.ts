@@ -7,4 +7,5 @@ export interface RefreshTokenRepositoryMethods {
   create(data: CreateRefreshTokenDTO): Promise<RefreshTokenDTO>;
   findOne(data: FindOneRefreshTokenDTO): Promise<RefreshToken | null>;
   remove(data: RefreshToken): Promise<RefreshToken>;
+  removeAllByUserId(userId: string): Promise<void>;
 }

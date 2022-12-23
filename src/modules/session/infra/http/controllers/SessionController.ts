@@ -4,7 +4,7 @@ import { container } from 'tsyringe';
 import {
   SessionService,
   Request as SessionRequest,
-} from '@modules/users/services/SessionService';
+} from '@modules/session/services/SessionService';
 
 import {
   RefreshTokenService,

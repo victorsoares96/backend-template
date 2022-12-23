@@ -26,9 +26,9 @@ import {
   HashProviderMethods,
 } from '@modules/session/providers/HashProvider';
 import {
-  TokenProviderMethods,
   TokenProvider,
-} from '@modules/users/providers/TokenProvider';
+  TokenProviderMethods,
+} from '@modules/session/providers/TokenProvider';
 
 import { sessionsRouter } from '@modules/session/infra/http/routes/sessions.routes';
 import { usersRouter } from '@modules/users/infra/http/routes/users.routes';

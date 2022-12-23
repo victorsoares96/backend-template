@@ -2,9 +2,9 @@ import { injectable, inject } from 'tsyringe';
 
 import { AppError } from '@shared/errors/AppError';
 
-import { User } from '../infra/typeorm/entities/User';
-import { UsersRepositoryMethods } from '../repositories/UsersRepositoryMethods';
-import { ESessionError } from '../utils/enums/e-errors';
+import { User } from '@modules/users/infra/typeorm/entities/User';
+import { Error } from '@modules/session/utils/enums/e-errors';
+import { UsersRepositoryMethods } from '@modules/users/repositories/UsersRepositoryMethods';
 import { HashProviderMethods } from '../providers/HashProvider/models/HashProviderMethods';
 import { RefreshTokenRepositoryMethods } from '../repositories/RefreshTokenRepositoryMethods';
 import { RefreshTokenDTO } from '../dtos/RefreshTokenDTO';
@@ -38,10 +38,7 @@ export class SessionService {
     const user = await this.usersRepository.findOne({ username });
 
     if (!user)
-      throw new AppError(
-        ESessionError.IncorrectUsernamePasswordCombination,
-        401,
-      );
+      throw new AppError(Error.IncorrectUsernamePasswordCombination, 401);
 
     const passwordMatched = await this.hashProvider.compareHash(
       password,
@@ -49,12 +46,11 @@ export class SessionService {
     );
 
     if (!passwordMatched)
-      throw new AppError(
-        ESessionError.IncorrectUsernamePasswordCombination,
-        401,
-      );
+      throw new AppError(Error.IncorrectUsernamePasswordCombination, 401);
 
     const token = await this.tokenProvider.generate(user.fullName, user.id);
+
+    await this.refreshTokensRepository.removeAllByUserId(user.id);
 
     const refreshToken = await this.refreshTokensRepository.create({
       user,
