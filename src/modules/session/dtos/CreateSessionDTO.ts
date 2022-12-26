@@ -1,5 +1,5 @@
 import { User } from '@modules/users/infra/typeorm/entities/User';
 
-export interface CreateRefreshTokenDTO {
+export interface CreateSessionDTO {
   user: User;
 }

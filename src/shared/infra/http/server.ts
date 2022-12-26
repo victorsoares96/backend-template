@@ -15,11 +15,11 @@ import { PermissionRepository } from '@modules/permissions/infra/typeorm/reposit
 import { AccessProfilesRepositoryMethods } from '@modules/accessProfiles/repositories/AccessProfilesRepositoryMethods';
 import { AccessProfileRepository } from '@modules/accessProfiles/infra/typeorm/repositories/AccessProfileRepository';
 
+import { SessionRepositoryMethods } from '@modules/session/repositories/SessionRepositoryMethods';
+import { SessionRepository } from '@modules/session/infra/typeorm/repositories/SessionRepository';
+
 import { UsersRepositoryMethods } from '@modules/users/repositories/UsersRepositoryMethods';
 import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
-
-import { RefreshTokenRepositoryMethods } from '@modules/session/repositories/RefreshTokenRepositoryMethods';
-import { RefreshTokenRepository } from '@modules/session/infra/typeorm/repositories/RefreshTokenRepository';
 
 import {
   BCryptHashProvider,
@@ -73,9 +73,9 @@ class App {
       UserRepository,
     );
 
-    container.registerSingleton<RefreshTokenRepositoryMethods>(
-      'RefreshTokensRepository',
-      RefreshTokenRepository,
+    container.registerSingleton<SessionRepositoryMethods>(
+      'SessionRepository',
+      SessionRepository,
     );
 
     container.registerSingleton<HashProviderMethods>(

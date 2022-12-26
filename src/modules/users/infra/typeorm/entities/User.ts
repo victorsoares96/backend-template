@@ -15,7 +15,7 @@ import { hashSync } from 'bcryptjs';
 
 import { EUserStatus } from '@modules/users/utils/enums/e-user';
 import { AccessProfile } from '@modules/accessProfiles/infra/typeorm/entities/AccessProfile';
-import { RefreshToken } from '../../../../session/infra/typeorm/entities/RefreshToken';
+import { RefreshToken } from '../../../../session/infra/typeorm/entities/Session';
 
 @Entity('user')
 export class User {

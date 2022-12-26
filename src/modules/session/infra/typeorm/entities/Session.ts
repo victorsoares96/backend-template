@@ -9,7 +9,7 @@ import {
 import { User } from '../../../../users/infra/typeorm/entities/User';
 
 @Entity('refreshToken')
-export class RefreshToken {
+export class Session {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

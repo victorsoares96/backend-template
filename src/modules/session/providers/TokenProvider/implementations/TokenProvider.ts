@@ -1,11 +1,11 @@
 import { sign, verify } from 'jsonwebtoken';
-import authConfig from '@config/auth';
 import { TokenProviderMethods } from '../models/TokenProviderMethods';
+
+const secret = '6c1839afa3ad1f8a4ae68c74c28933ea';
+const expiresIn = '1h';
 
 export class TokenProvider implements TokenProviderMethods {
   public generate(userName: string, userId: string): string {
-    const { secret, expiresIn } = authConfig.jwt;
-
     const token = sign({ name: userName }, secret, {
       subject: String(userId),
       expiresIn,
@@ -14,8 +14,6 @@ export class TokenProvider implements TokenProviderMethods {
   }
 
   public verify<T>(token: string): T {
-    const { secret } = authConfig.jwt;
-
     const decoded = verify(token, secret);
     return decoded as T;
   }

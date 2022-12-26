@@ -1,3 +1,3 @@
-export interface FindOneRefreshTokenDTO {
+export interface FindOneSessionDTO {
   id: string;
 }

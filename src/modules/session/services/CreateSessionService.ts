@@ -6,9 +6,9 @@ import { User } from '@modules/users/infra/typeorm/entities/User';
 import { Error } from '@modules/session/utils/enums/e-errors';
 import { UsersRepositoryMethods } from '@modules/users/repositories/UsersRepositoryMethods';
 import { HashProviderMethods } from '../providers/HashProvider/models/HashProviderMethods';
-import { RefreshTokenRepositoryMethods } from '../repositories/RefreshTokenRepositoryMethods';
-import { RefreshTokenDTO } from '../dtos/RefreshTokenDTO';
 import { TokenProviderMethods } from '../providers/TokenProvider';
+import { SessionDTO } from '../dtos/SessionDTO';
+import { SessionRepositoryMethods } from '../repositories/SessionRepositoryMethods';
 
 export interface Request {
   username: string;
@@ -18,16 +18,16 @@ export interface Request {
 interface Response {
   user: User;
   token: string;
-  refreshToken: RefreshTokenDTO;
+  refreshToken: SessionDTO;
 }
 
 @injectable()
-export class SessionService {
+export class CreateSessionService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: UsersRepositoryMethods,
     @inject('RefreshTokensRepository')
-    private refreshTokensRepository: RefreshTokenRepositoryMethods,
+    private refreshTokensRepository: SessionRepositoryMethods,
     @inject('HashProvider')
     private hashProvider: HashProviderMethods,
     @inject('TokenProvider')
@@ -37,16 +37,18 @@ export class SessionService {
   public async execute({ username, password }: Request): Promise<Response> {
     const user = await this.usersRepository.findOne({ username });
 
-    if (!user)
+    if (!user) {
       throw new AppError(Error.IncorrectUsernamePasswordCombination, 401);
+    }
 
     const passwordMatched = await this.hashProvider.compareHash(
       password,
       user.password,
     );
 
-    if (!passwordMatched)
+    if (!passwordMatched) {
       throw new AppError(Error.IncorrectUsernamePasswordCombination, 401);
+    }
 
     const token = await this.tokenProvider.generate(user.fullName, user.id);
 
