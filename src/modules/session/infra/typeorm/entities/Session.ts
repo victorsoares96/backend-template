@@ -6,9 +6,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from '../../../../users/infra/typeorm/entities/User';
+import { User } from '@modules/users/infra/typeorm/entities/User';
 
-@Entity('refreshToken')
+@Entity('session')
 export class Session {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -19,7 +19,7 @@ export class Session {
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @ManyToOne(() => User, user => user.refreshTokens, {
+  @ManyToOne(() => User, user => user.sessions, {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
     eager: true,

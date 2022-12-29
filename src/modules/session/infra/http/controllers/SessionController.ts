@@ -2,13 +2,13 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import {
-  SessionService,
-  Request as SessionRequest,
+  CreateSessionService,
+  Request as CreateSessionRequest,
 } from '@modules/session/services/CreateSessionService';
 
 import {
-  RefreshTokenService,
-  Request as RefreshTokenRequest,
+  RefreshSessionService,
+  Request as RefreshSessionRequest,
 } from '@modules/session/services/RefreshSessionService';
 
 export class SessionController {
@@ -16,9 +16,9 @@ export class SessionController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { username, password } = request.body as SessionRequest;
+    const { username, password } = request.body as CreateSessionRequest;
 
-    const createSession = container.resolve(SessionService);
+    const createSession = container.resolve(CreateSessionService);
     const session = await createSession.execute({
       username,
       password,
@@ -31,11 +31,11 @@ export class SessionController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { refreshToken } = request.body as RefreshTokenRequest;
+    const { refreshToken } = request.body as RefreshSessionRequest;
 
-    const generateRefreshToken = container.resolve(RefreshTokenService);
-    const token = await generateRefreshToken.execute({ refreshToken });
+    const generateRefreshSession = container.resolve(RefreshSessionService);
+    const session = await generateRefreshSession.execute({ refreshToken });
 
-    return response.json(token);
+    return response.json(session);
   }
 }

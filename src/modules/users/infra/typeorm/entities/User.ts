@@ -15,7 +15,7 @@ import { hashSync } from 'bcryptjs';
 
 import { EUserStatus } from '@modules/users/utils/enums/e-user';
 import { AccessProfile } from '@modules/accessProfiles/infra/typeorm/entities/AccessProfile';
-import { RefreshToken } from '../../../../session/infra/typeorm/entities/Session';
+import { Session } from '@modules/session/infra/typeorm/entities/Session';
 
 @Entity('user')
 export class User {
@@ -98,11 +98,11 @@ export class User {
   @Column({ name: 'password' })
   password: string;
 
-  @OneToMany(() => RefreshToken, refreshToken => refreshToken.user, {
+  @OneToMany(() => Session, session => session.user, {
     onDelete: 'CASCADE',
     nullable: true,
   })
-  refreshTokens?: RefreshToken[];
+  sessions?: Session[];
 
   @BeforeInsert()
   @BeforeUpdate()

@@ -44,6 +44,7 @@ export class PermissionRepository implements PermissionsRepositoryMethods {
       where: [{ ...query }],
     });
 
+    if (!permission) return null;
     return permission;
   }
 

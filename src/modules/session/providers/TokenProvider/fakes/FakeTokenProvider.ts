@@ -2,7 +2,8 @@ import { TokenProviderMethods } from '../models/TokenProviderMethods';
 
 export class FakeTokenProvider implements TokenProviderMethods {
   public generate(_payload: string | object | Buffer): string {
-    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWRtaW4gMTIzIiwiaWF0IjoxNjY0MTMxNTE0LCJleHAiOjE2NjQyMTc5MTQsInN1YiI6IjEifQ.CXLk-uRlcMZoB3O2vdzP5V-Jaqk2iGiKopOWI9Bqfvc';
+    const randomToken = Math.random().toString(36).substring(2, 15);
+    return randomToken;
   }
 
   public verify<T = unknown>(_token: string): T {

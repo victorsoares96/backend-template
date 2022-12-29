@@ -9,7 +9,7 @@ export class FakeSessionRepository implements SessionRepositoryMethods {
   private sessions: Session[] = [];
 
   public async create({ user }: CreateSessionDTO): Promise<SessionDTO> {
-    const expiresIn = dayjs().add(15, 'second').unix();
+    const expiresIn = dayjs().add(30, 'day').unix();
     const session = new Session();
 
     Object.assign(session, {

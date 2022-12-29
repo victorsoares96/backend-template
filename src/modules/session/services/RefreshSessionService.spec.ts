@@ -7,6 +7,7 @@ import { CreateUserService } from '@modules/users/services/CreateUserService';
 import { EUserStatus } from '@modules/users/utils/enums/e-user';
 import { Error } from '@modules/session/utils/enums/e-errors';
 import { AppError } from '@shared/errors/AppError';
+import dayjs from 'dayjs';
 import { FakeHashProvider } from '../providers/HashProvider';
 import { FakeTokenProvider } from '../providers/TokenProvider';
 import { FakeSessionRepository } from '../repositories/fakes/FakeSessionRepository';
@@ -14,12 +15,12 @@ import { CreateSessionService } from './CreateSessionService';
 import { RefreshSessionService } from './RefreshSessionService';
 
 let fakeSessionRepository: FakeSessionRepository;
-let fakeUsersRepository: FakeUsersRepository;
-let createUser: CreateUserService;
 let fakeHashProvider: FakeHashProvider;
 let fakeTokenProvider: FakeTokenProvider;
 let createSession: CreateSessionService;
 let refreshSession: RefreshSessionService;
+
+jest.useFakeTimers();
 
 describe('SessionService', () => {
   beforeEach(async () => {
@@ -36,6 +37,13 @@ describe('SessionService', () => {
       fakeAccessProfileRepository,
       fakePermissionsRepository,
     );
+
+    const fakeUsersRepository = new FakeUsersRepository();
+    const createUser = new CreateUserService(
+      fakeUsersRepository,
+      fakeAccessProfileRepository,
+    );
+
     await createAccessProfile.execute({
       name: 'Admin',
       description: 'Access profile for admins',
@@ -45,6 +53,7 @@ describe('SessionService', () => {
       updatedById: '1',
       updatedByName: 'Foo',
     });
+
     await createUser.execute({
       firstName: 'Foo',
       lastName: 'Bar',
@@ -62,20 +71,17 @@ describe('SessionService', () => {
     });
 
     fakeSessionRepository = new FakeSessionRepository();
-    fakeUsersRepository = new FakeUsersRepository();
-    createUser = new CreateUserService(
-      fakeUsersRepository,
-      fakeAccessProfileRepository,
-    );
 
     fakeHashProvider = new FakeHashProvider();
     fakeTokenProvider = new FakeTokenProvider();
+
     createSession = new CreateSessionService(
       fakeUsersRepository,
       fakeSessionRepository,
       fakeHashProvider,
       fakeTokenProvider,
     );
+
     refreshSession = new RefreshSessionService(
       fakeSessionRepository,
       fakeTokenProvider,
@@ -83,23 +89,53 @@ describe('SessionService', () => {
   });
 
   it('should be able to refresh a session', async () => {
-    const response = await createSession.execute({
+    const { refreshToken, token, user } = await createSession.execute({
       username: 'foobar',
       password: 'Password123',
     });
 
-    expect(response).toHaveProperty('token');
+    const response = await refreshSession.execute({
+      refreshToken: refreshToken.id,
+    });
+
+    expect(response.token).not.toEqual(token);
+    expect(response.refreshToken.userId).toBe(user.id);
+    expect(response.refreshToken.expiresIn).toBe(refreshToken.expiresIn);
+    expect(response.refreshToken.id).toBe(refreshToken.id);
   });
 
-  it('should not be able to authenticate if provide incorrect username and password combination', async () => {
+  it('should not be able to refresh a session if session does not exist', async () => {
     expect(
-      await createSession
+      await refreshSession
         .execute({
-          username: 'johndoe',
-          password: 'Password123',
+          refreshToken: 'fake-session',
         })
         .then(res => res)
         .catch(err => err),
-    ).toEqual(new AppError(Error.IncorrectUsernamePasswordCombination));
+    ).toEqual(new AppError(Error.MissingSession));
+  });
+
+  it('should not be able to refresh a session if session has expired', async () => {
+    const { refreshToken } = await createSession.execute({
+      username: 'foobar',
+      password: 'Password123',
+    });
+
+    const expiresIn = dayjs().add(30, 'day').unix().valueOf();
+    const waitSessionExpire = (callback: () => void) =>
+      setTimeout(() => {
+        callback();
+      }, expiresIn);
+
+    waitSessionExpire(async () =>
+      expect(
+        await refreshSession
+          .execute({
+            refreshToken: refreshToken.id,
+          })
+          .then(res => res)
+          .catch(err => err),
+      ).toEqual(new AppError(Error.InvalidSession)),
+    );
   });
 });

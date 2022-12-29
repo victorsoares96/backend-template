@@ -59,6 +59,7 @@ export class UserRepository implements UsersRepositoryMethods {
       withDeleted: isDeleted,
     });
 
+    if (!user) return null;
     return user;
   }
 
