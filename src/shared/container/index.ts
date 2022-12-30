@@ -1,27 +1,27 @@
 import { container } from 'tsyringe';
 
-import { PermissionsRepositoryMethods } from '@modules/permissions/repositories/PermissionsRepositoryMethods';
-import { PermissionRepository } from '@modules/permissions/infra/typeorm/repositories/PermissionRepository';
+import { PermissionsRepositoryInterface } from '@modules/permissions/repositories/permissions-repository.interface';
+import { PermissionRepository } from '@modules/permissions/infra/typeorm/repositories/permission.repository';
 
-import { AccessProfilesRepositoryMethods } from '@modules/accessProfiles/repositories/AccessProfilesRepositoryMethods';
-import { AccessProfileRepository } from '@modules/accessProfiles/infra/typeorm/repositories/AccessProfileRepository';
+import { AccessProfilesRepositoryInterface } from '@modules/access-profiles/repositories/access-profiles-repository.interface';
+import { AccessProfileRepository } from '@modules/access-profiles/infra/typeorm/repositories/access-profile.repository';
 
-import { UsersRepositoryMethods } from '@modules/users/repositories/UsersRepositoryMethods';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
+import { UsersRepositoryInterface } from '@modules/users/repositories/user-repository.interface';
+import { UserRepository } from '@modules/users/infra/typeorm/repositories/user.repository';
 
 export class Tsyringe {
   constructor() {
-    container.registerSingleton<PermissionsRepositoryMethods>(
+    container.registerSingleton<PermissionsRepositoryInterface>(
       'PermissionsRepository',
       PermissionRepository,
     );
 
-    container.registerSingleton<AccessProfilesRepositoryMethods>(
+    container.registerSingleton<AccessProfilesRepositoryInterface>(
       'AccessProfileRepository',
       AccessProfileRepository,
     );
 
-    container.registerSingleton<UsersRepositoryMethods>(
+    container.registerSingleton<UsersRepositoryInterface>(
       'UsersRepository',
       UserRepository,
     );

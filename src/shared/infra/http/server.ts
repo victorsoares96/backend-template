@@ -5,37 +5,37 @@ import { container } from 'tsyringe';
 import 'express-async-errors';
 
 import { Connection } from 'typeorm';
-import uploadConfig from '@config/upload';
+import uploadConfig from '@config/upload.config';
 
 import connection from '@shared/infra/typeorm';
 
-import { PermissionsRepositoryMethods } from '@modules/permissions/repositories/PermissionsRepositoryMethods';
-import { PermissionRepository } from '@modules/permissions/infra/typeorm/repositories/PermissionRepository';
+import { PermissionsRepositoryInterface } from '@modules/permissions/repositories/permissions-repository.interface';
+import { PermissionRepository } from '@modules/permissions/infra/typeorm/repositories/permission.repository';
 
-import { AccessProfilesRepositoryMethods } from '@modules/accessProfiles/repositories/AccessProfilesRepositoryMethods';
-import { AccessProfileRepository } from '@modules/accessProfiles/infra/typeorm/repositories/AccessProfileRepository';
+import { AccessProfilesRepositoryInterface } from '@modules/access-profiles/repositories/access-profiles-repository.interface';
+import { AccessProfileRepository } from '@modules/access-profiles/infra/typeorm/repositories/access-profile.repository';
 
-import { SessionRepositoryMethods } from '@modules/session/repositories/SessionRepositoryMethods';
-import { SessionRepository } from '@modules/session/infra/typeorm/repositories/SessionRepository';
+import { SessionRepositoryInterface } from '@modules/session/repositories/session-repository.interface';
+import { SessionRepository } from '@modules/session/infra/typeorm/repositories/session.repository';
 
-import { UsersRepositoryMethods } from '@modules/users/repositories/UsersRepositoryMethods';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
+import { UsersRepositoryInterface } from '@modules/users/repositories/user-repository.interface';
+import { UserRepository } from '@modules/users/infra/typeorm/repositories/user.repository';
 
 import {
-  BCryptHashProvider,
-  HashProviderMethods,
-} from '@modules/session/providers/HashProvider';
+  HashProvider,
+  HashProviderInterface,
+} from '@modules/session/providers/hash';
 import {
   TokenProvider,
-  TokenProviderMethods,
-} from '@modules/session/providers/TokenProvider';
+  TokenProviderInterface,
+} from '@modules/session/providers/token';
 
 import { sessionsRouter } from '@modules/session/infra/http/routes/sessions.routes';
-import { usersRouter } from '@modules/users/infra/http/routes/users.routes';
-import { accessProfilesRouter } from '@modules/accessProfiles/infra/http/routes/access-profiles.routes';
+import { usersRouter } from '@modules/users/infra/http/routes/user.routes';
+import { accessProfilesRouter } from '@modules/access-profiles/infra/http/routes/access-profiles.routes';
 import { permissionsRouter } from '@modules/permissions/infra/http/routes/permissions.routes';
 
-import errorHandler from './middlewares/errorHandler';
+import errorHandler from './middlewares/error-handler.middleware';
 
 class App {
   public express: express.Application;
@@ -58,32 +58,32 @@ class App {
   }
 
   private tsyringe(): void {
-    container.registerSingleton<PermissionsRepositoryMethods>(
+    container.registerSingleton<PermissionsRepositoryInterface>(
       'PermissionsRepository',
       PermissionRepository,
     );
 
-    container.registerSingleton<AccessProfilesRepositoryMethods>(
+    container.registerSingleton<AccessProfilesRepositoryInterface>(
       'AccessProfilesRepository',
       AccessProfileRepository,
     );
 
-    container.registerSingleton<UsersRepositoryMethods>(
+    container.registerSingleton<UsersRepositoryInterface>(
       'UsersRepository',
       UserRepository,
     );
 
-    container.registerSingleton<SessionRepositoryMethods>(
+    container.registerSingleton<SessionRepositoryInterface>(
       'SessionRepository',
       SessionRepository,
     );
 
-    container.registerSingleton<HashProviderMethods>(
+    container.registerSingleton<HashProviderInterface>(
       'HashProvider',
-      BCryptHashProvider,
+      HashProvider,
     );
 
-    container.registerSingleton<TokenProviderMethods>(
+    container.registerSingleton<TokenProviderInterface>(
       'TokenProvider',
       TokenProvider,
     );
@@ -111,10 +111,10 @@ class App {
   private routes(): void {
     this.express.use('/files', express.static(uploadConfig.uploadsFolder));
 
-    this.express.use(sessionsRouter);
-    this.express.use(usersRouter);
-    this.express.use(accessProfilesRouter);
-    this.express.use(permissionsRouter);
+    this.express.use('/api/session', sessionsRouter);
+    this.express.use('/api/user', usersRouter);
+    this.express.use('/api/access-profile', accessProfilesRouter);
+    this.express.use('/api/permission', permissionsRouter);
   }
 }
 
