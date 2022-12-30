@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import { AccessProfilesRepositoryMethods } from '@modules/accessProfiles/repositories/AccessProfilesRepositoryMethods';
 import { CreateAccessProfileDTO } from '@modules/accessProfiles/dtos/CreateAccessProfileDTO';
 import { AccessProfile } from '@modules/accessProfiles/infra/typeorm/entities/AccessProfile';

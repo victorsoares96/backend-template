@@ -19,9 +19,3 @@ export enum EUserError {
   EmailIsInvalid = 'Email is invalid.',
   PasswordMustBeAtLeastEightCharsOneUpperCaseAndOneNumber = 'Password must be at least 8 characters, 1 upper case, 1 number.',
 }
-
-export enum ESessionError {
-  IncorrectUsernamePasswordCombination = 'Incorrect username/password combination.',
-  InvalidJWT = 'Invalid JWT token.',
-  MissingJWT = 'JWT token is missing.',
-}

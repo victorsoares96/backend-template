@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import { is } from '@shared/infra/http/middlewares/ensureAuthorized';
 import { PermissionsController } from '@modules/permissions/infra/http/controllers/PermissionsController';
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import ensureAuthenticated from '@modules/session/infra/http/middlewares/ensureAuthenticated';
 import {
   CAN_CREATE_PERMISSION,
   CAN_VIEW_PERMISSIONS,

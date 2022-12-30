@@ -15,10 +15,22 @@ import { PermissionRepository } from '@modules/permissions/infra/typeorm/reposit
 import { AccessProfilesRepositoryMethods } from '@modules/accessProfiles/repositories/AccessProfilesRepositoryMethods';
 import { AccessProfileRepository } from '@modules/accessProfiles/infra/typeorm/repositories/AccessProfileRepository';
 
+import { SessionRepositoryMethods } from '@modules/session/repositories/SessionRepositoryMethods';
+import { SessionRepository } from '@modules/session/infra/typeorm/repositories/SessionRepository';
+
 import { UsersRepositoryMethods } from '@modules/users/repositories/UsersRepositoryMethods';
 import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
 
-import { sessionsRouter } from '@modules/users/infra/http/routes/sessions.routes';
+import {
+  BCryptHashProvider,
+  HashProviderMethods,
+} from '@modules/session/providers/HashProvider';
+import {
+  TokenProvider,
+  TokenProviderMethods,
+} from '@modules/session/providers/TokenProvider';
+
+import { sessionsRouter } from '@modules/session/infra/http/routes/sessions.routes';
 import { usersRouter } from '@modules/users/infra/http/routes/users.routes';
 import { accessProfilesRouter } from '@modules/accessProfiles/infra/http/routes/access-profiles.routes';
 import { permissionsRouter } from '@modules/permissions/infra/http/routes/permissions.routes';
@@ -59,6 +71,21 @@ class App {
     container.registerSingleton<UsersRepositoryMethods>(
       'UsersRepository',
       UserRepository,
+    );
+
+    container.registerSingleton<SessionRepositoryMethods>(
+      'SessionRepository',
+      SessionRepository,
+    );
+
+    container.registerSingleton<HashProviderMethods>(
+      'HashProvider',
+      BCryptHashProvider,
+    );
+
+    container.registerSingleton<TokenProviderMethods>(
+      'TokenProvider',
+      TokenProvider,
     );
   }
 

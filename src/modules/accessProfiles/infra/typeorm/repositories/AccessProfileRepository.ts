@@ -62,6 +62,7 @@ export class AccessProfileRepository
       withDeleted: isDeleted,
     });
 
+    if (!accessProfile) return null;
     return accessProfile;
   }
 
