@@ -5,7 +5,7 @@ import { AppError } from '@shared/errors/AppError';
 import { User } from '@modules/users/infra/typeorm/entities/User';
 import { EUserError } from '@modules/users/utils/enums/e-errors';
 import { UsersRepositoryMethods } from '../repositories/UsersRepositoryMethods';
-import { HashProviderMethods } from '../providers/HashProvider/models/HashProviderMethods';
+import { HashProviderMethods } from '../../session/providers/HashProvider/models/HashProviderMethods';
 
 interface Request {
   id: string;

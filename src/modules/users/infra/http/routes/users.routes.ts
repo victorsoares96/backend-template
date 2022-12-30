@@ -10,7 +10,7 @@ import {
   CAN_VIEW_USER,
   CAN_RECOVER_USER,
 } from '@modules/users/utils/enums/e-access-permissions';
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import ensureAuthenticated from '@modules/session/infra/http/middlewares/ensureAuthenticated';
 
 import { is } from '@shared/infra/http/middlewares/ensureAuthorized';
 import { UsersController } from '../controllers/UsersController';

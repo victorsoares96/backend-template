@@ -2,20 +2,24 @@ import { FakeAccessProfileRepository } from '@modules/accessProfiles/repositorie
 import { CreateAccessProfileService } from '@modules/accessProfiles/services/CreateAccessProfileService';
 import { FakePermissionsRepository } from '@modules/permissions/repositories/fakes/FakePermissionsRepository';
 import { CreatePermissionService } from '@modules/permissions/services/CreatePermissionService';
+import { FakeUsersRepository } from '@modules/users/repositories/fakes/FakeUsersRepository';
+import { CreateUserService } from '@modules/users/services/CreateUserService';
+import { EUserStatus } from '@modules/users/utils/enums/e-user';
+import { Error } from '@modules/session/utils/enums/e-errors';
 import { AppError } from '@shared/errors/AppError';
-import { FakeHashProvider } from '../providers/HashProvider/fakes/FakeHashProvider';
-import { FakeUsersRepository } from '../repositories/fakes/FakeUsersRepository';
-import { ESessionError } from '../utils/enums/e-errors';
-import { EUserStatus } from '../utils/enums/e-user';
-import { CreateUserService } from './CreateUserService';
-import { SessionService } from './SessionService';
+import { FakeHashProvider } from '../providers/HashProvider';
+import { FakeTokenProvider } from '../providers/TokenProvider';
+import { FakeSessionRepository } from '../repositories/fakes/FakeSessionRepository';
+import { CreateSessionService } from './CreateSessionService';
 
+let fakeSessionRepository: FakeSessionRepository;
 let fakeUsersRepository: FakeUsersRepository;
 let createUser: CreateUserService;
 let fakeHashProvider: FakeHashProvider;
-let sessionUser: SessionService;
+let fakeTokenProvider: FakeTokenProvider;
+let createSession: CreateSessionService;
 
-describe('SessionUser', () => {
+describe('CreateSessionService', () => {
   beforeEach(async () => {
     const fakePermissionsRepository = new FakePermissionsRepository();
     const createPermission = new CreatePermissionService(
@@ -40,6 +44,7 @@ describe('SessionUser', () => {
       updatedByName: 'Foo',
     });
 
+    fakeSessionRepository = new FakeSessionRepository();
     fakeUsersRepository = new FakeUsersRepository();
     createUser = new CreateUserService(
       fakeUsersRepository,
@@ -47,7 +52,13 @@ describe('SessionUser', () => {
     );
 
     fakeHashProvider = new FakeHashProvider();
-    sessionUser = new SessionService(fakeUsersRepository, fakeHashProvider);
+    fakeTokenProvider = new FakeTokenProvider();
+    createSession = new CreateSessionService(
+      fakeUsersRepository,
+      fakeSessionRepository,
+      fakeHashProvider,
+      fakeTokenProvider,
+    );
   });
 
   it('should be able to authenticate', async () => {
@@ -67,7 +78,7 @@ describe('SessionUser', () => {
       password: 'Password123',
     });
 
-    const response = await sessionUser.execute({
+    const response = await createSession.execute({
       username: 'foobar',
       password: 'Password123',
     });
@@ -78,13 +89,13 @@ describe('SessionUser', () => {
 
   it('should not be able to authenticate if provide incorrect username and password combination', async () => {
     expect(
-      await sessionUser
+      await createSession
         .execute({
           username: 'johndoe',
           password: 'Password123',
         })
         .then(res => res)
         .catch(err => err),
-    ).toEqual(new AppError(ESessionError.IncorrectUsernamePasswordCombination));
+    ).toEqual(new AppError(Error.IncorrectUsernamePasswordCombination));
   });
 });

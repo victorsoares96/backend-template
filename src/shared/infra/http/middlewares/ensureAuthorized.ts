@@ -7,7 +7,8 @@ import { AppError } from '@shared/errors/AppError';
 import { Permission } from '@modules/permissions/infra/typeorm/entities/Permission';
 import { UsersRepositoryMethods } from '@modules/users/repositories/UsersRepositoryMethods';
 import { AccessProfilesRepositoryMethods } from '@modules/accessProfiles/repositories/AccessProfilesRepositoryMethods';
-import { ESessionError, EUserError } from '@modules/users/utils/enums/e-errors';
+import { EUserError as UserError } from '@modules/users/utils/enums/e-errors';
+import { Error as SessionError } from '@modules/session/utils/enums/e-errors';
 import { EAccessProfileError } from '@modules/accessProfiles/utils/enums/e-errors';
 
 interface TokenPayload {
@@ -28,7 +29,7 @@ class Decoder {
 
   public async getPermissions(request: Request): Promise<Permission[]> {
     const authHeader = request.headers.authorization;
-    if (!authHeader) throw new AppError(ESessionError.MissingJWT, 401);
+    if (!authHeader) throw new AppError(SessionError.MissingJWT, 401);
 
     const [, token] = authHeader.split(' ');
 
@@ -37,7 +38,7 @@ class Decoder {
 
     const user = await this.usersRepository.findOne({ id });
 
-    if (!user) throw new AppError(EUserError.NotFound);
+    if (!user) throw new AppError(UserError.NotFound);
 
     const accessProfile = await this.accessProfilesRepository.findOne({
       id: user.accessProfile.id,

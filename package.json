@@ -27,6 +27,7 @@
     "get_db_backup-id": "node ./src/scripts/get_db_backup-id.js"
   },
   "dependencies": {
+    "dayjs": "^1.11.3",
     "aws-sdk": "2.1084.0",
     "bcryptjs": "2.4.3",
     "class-transformer": "0.5.0",
@@ -41,7 +42,7 @@
     "pg": "8.7.1",
     "reflect-metadata": "0.1.13",
     "tsyringe": "4.6.0",
-    "typeorm": "0.3.0"
+    "typeorm": "0.2.38"
   },
   "devDependencies": {
     "@babel/cli": "7.18.10",

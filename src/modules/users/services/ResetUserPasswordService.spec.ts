@@ -2,19 +2,23 @@ import { FakeAccessProfileRepository } from '@modules/accessProfiles/repositorie
 import { CreateAccessProfileService } from '@modules/accessProfiles/services/CreateAccessProfileService';
 import { FakePermissionsRepository } from '@modules/permissions/repositories/fakes/FakePermissionsRepository';
 import { CreatePermissionService } from '@modules/permissions/services/CreatePermissionService';
+import { FakeTokenProvider } from '@modules/session/providers/TokenProvider';
+import { FakeSessionRepository } from '@modules/session/repositories/fakes/FakeSessionRepository';
+import { CreateSessionService } from '@modules/session/services/CreateSessionService';
 import { AppError } from '@shared/errors/AppError';
-import { FakeHashProvider } from '../providers/HashProvider/fakes/FakeHashProvider';
+import { FakeHashProvider } from '../../session/providers/HashProvider/fakes/FakeHashProvider';
 import { FakeUsersRepository } from '../repositories/fakes/FakeUsersRepository';
 import { EUserError } from '../utils/enums/e-errors';
 import { EUserStatus } from '../utils/enums/e-user';
 import { CreateUserService } from './CreateUserService';
 import { ResetUserPasswordService } from './ResetUserPasswordService';
-import { SessionService } from './SessionService';
 
+let fakeSessionRepository: FakeSessionRepository;
 let fakeUsersRepository: FakeUsersRepository;
 let createUser: CreateUserService;
 let fakeHashProvider: FakeHashProvider;
-let sessionUser: SessionService;
+let fakeTokenProvider: FakeTokenProvider;
+let createSession: CreateSessionService;
 let resetPassword: ResetUserPasswordService;
 
 describe('ResetUserPassword', () => {
@@ -42,6 +46,7 @@ describe('ResetUserPassword', () => {
       updatedByName: 'Foo',
     });
 
+    fakeSessionRepository = new FakeSessionRepository();
     fakeUsersRepository = new FakeUsersRepository();
     createUser = new CreateUserService(
       fakeUsersRepository,
@@ -49,7 +54,13 @@ describe('ResetUserPassword', () => {
     );
 
     fakeHashProvider = new FakeHashProvider();
-    sessionUser = new SessionService(fakeUsersRepository, fakeHashProvider);
+    fakeTokenProvider = new FakeTokenProvider();
+    createSession = new CreateSessionService(
+      fakeUsersRepository,
+      fakeSessionRepository,
+      fakeHashProvider,
+      fakeTokenProvider,
+    );
     resetPassword = new ResetUserPasswordService(
       fakeUsersRepository,
       fakeHashProvider,
@@ -79,7 +90,7 @@ describe('ResetUserPassword', () => {
       newPassword: 'NewPassword123',
     });
 
-    const response = await sessionUser.execute({
+    const response = await createSession.execute({
       username: 'foobar',
       password: 'NewPassword123',
     });
