@@ -5,7 +5,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { AccessProfile } from '@modules/access-profiles/infra/typeorm/entities/access-profile.entity';
+import { AccessProfile } from '@/modules/access-profiles/infra/typeorm/entities/access-profile.entity';
 
 @Entity('permission')
 export class Permission {

@@ -1,9 +1,9 @@
 import { validate } from 'class-validator';
 import { injectable, inject } from 'tsyringe';
 
-import { AppError } from '@shared/errors/app-error.error';
-import { User } from '@modules/users/infra/typeorm/entities/user.entity';
-import { EUserError } from '@modules/users/utils/enums/errors.enum';
+import { AppError } from '@/shared/errors/app-error.error';
+import { User } from '@/modules/users/infra/typeorm/entities/user.entity';
+import { EUserError } from '@/modules/users/utils/enums/errors.enum';
 import { UsersRepositoryInterface } from '../repositories/user-repository.interface';
 import { HashProviderInterface } from '../../session/providers/hash/interfaces/hash-provider.interface';
 

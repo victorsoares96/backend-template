@@ -2,14 +2,14 @@ import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import { injectable, inject, container } from 'tsyringe';
 
-import authConfig from '@config/auth.config';
-import { AppError } from '@shared/errors/app-error.error';
-import { Permission } from '@modules/permissions/infra/typeorm/entities/permission.entity';
-import { UsersRepositoryInterface } from '@modules/users/repositories/user-repository.interface';
-import { AccessProfilesRepositoryInterface } from '@modules/access-profiles/repositories/access-profiles-repository.interface';
-import { EUserError as UserError } from '@modules/users/utils/enums/errors.enum';
-import { Error as SessionError } from '@modules/session/utils/enums/errors.enum';
-import { EAccessProfileError } from '@modules/access-profiles/utils/enums/errors.enum';
+import authConfig from '@/config/auth.config';
+import { AppError } from '@/shared/errors/app-error.error';
+import { Permission } from '@/modules/permissions/infra/typeorm/entities/permission.entity';
+import { UsersRepositoryInterface } from '@/modules/users/repositories/user-repository.interface';
+import { AccessProfilesRepositoryInterface } from '@/modules/access-profiles/repositories/access-profiles-repository.interface';
+import { EUserError as UserError } from '@/modules/users/utils/enums/errors.enum';
+import { Error as SessionError } from '@/modules/session/utils/enums/errors.enum';
+import { EAccessProfileError } from '@/modules/access-profiles/utils/enums/errors.enum';
 
 interface TokenPayload {
   iat: number;

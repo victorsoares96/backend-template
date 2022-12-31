@@ -1,7 +1,7 @@
-import { FakePermissionsRepository } from '@modules/permissions/repositories/fakes/fake-permissions.repository';
-import { CreatePermissionService } from '@modules/permissions/services/create-permission.service';
-import { CreateAccessProfileService } from '@modules/access-profiles/services/create-access-profile.service';
-import { FakeAccessProfileRepository } from '@modules/access-profiles/repositories/fakes/fake-access-profiles.repository';
+import { FakePermissionsRepository } from '@/modules/permissions/repositories/fakes/fake-permissions.repository';
+import { CreatePermissionService } from '@/modules/permissions/services/create-permission.service';
+import { CreateAccessProfileService } from '@/modules/access-profiles/services/create-access-profile.service';
+import { FakeAccessProfileRepository } from '@/modules/access-profiles/repositories/fakes/fake-access-profiles.repository';
 import { User } from '../infra/typeorm/entities/user.entity';
 import { FakeUsersRepository } from '../repositories/fakes/fake-user.repository';
 import { CreateUserService } from './create-user.service';

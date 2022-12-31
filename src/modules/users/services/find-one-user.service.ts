@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
-import { AppError } from '@shared/errors/app-error.error';
-import { EGenericError } from '@shared/utils/enums/errors.enum';
+import { AppError } from '@/shared/errors/app-error.error';
+import { EGenericError } from '@/shared/utils/enums/errors.enum';
 import { UsersRepositoryInterface } from '../repositories/user-repository.interface';
 import { FindOneUserDTO } from '../dtos/find-one-user.dto';
 import { User } from '../infra/typeorm/entities/user.entity';

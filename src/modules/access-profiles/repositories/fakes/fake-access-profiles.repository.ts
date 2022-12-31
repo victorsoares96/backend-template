@@ -1,10 +1,10 @@
-import { AccessProfilesRepositoryInterface } from '@modules/access-profiles/repositories/access-profiles-repository.interface';
-import { CreateAccessProfileDTO } from '@modules/access-profiles/dtos/create-access-profile.dto';
-import { AccessProfile } from '@modules/access-profiles/infra/typeorm/entities/access-profile.entity';
-import { FindOneAccessProfileDTO } from '@modules/access-profiles/dtos/find-one-access-profile.dto';
-import { AccessProfileDTO } from '@modules/access-profiles/dtos/access-profile.dto';
-import { EAccessProfileStatus } from '@modules/access-profiles/utils/enums/status.enum';
-import { FindManyAccessProfileDTO } from '@modules/access-profiles/dtos/find-many-access-profile.dto';
+import { AccessProfilesRepositoryInterface } from '@/modules/access-profiles/repositories/access-profiles-repository.interface';
+import { CreateAccessProfileDTO } from '@/modules/access-profiles/dtos/create-access-profile.dto';
+import { AccessProfile } from '@/modules/access-profiles/infra/typeorm/entities/access-profile.entity';
+import { FindOneAccessProfileDTO } from '@/modules/access-profiles/dtos/find-one-access-profile.dto';
+import { AccessProfileDTO } from '@/modules/access-profiles/dtos/access-profile.dto';
+import { EAccessProfileStatus } from '@/modules/access-profiles/utils/enums/status.enum';
+import { FindManyAccessProfileDTO } from '@/modules/access-profiles/dtos/find-many-access-profile.dto';
 
 export class FakeAccessProfileRepository
   implements AccessProfilesRepositoryInterface

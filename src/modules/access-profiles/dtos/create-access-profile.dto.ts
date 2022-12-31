@@ -1,4 +1,4 @@
-import { Permission } from '@modules/permissions/infra/typeorm/entities/permission.entity';
+import { Permission } from '@/modules/permissions/infra/typeorm/entities/permission.entity';
 
 export interface CreateAccessProfileDTO {
   name: string;

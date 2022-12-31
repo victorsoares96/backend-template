@@ -1,5 +1,5 @@
-import { Permission } from '@modules/permissions/infra/typeorm/entities/permission.entity';
-import { User } from '@modules/users/infra/typeorm/entities/user.entity';
+import { Permission } from '@/modules/permissions/infra/typeorm/entities/permission.entity';
+import { User } from '@/modules/users/infra/typeorm/entities/user.entity';
 
 export interface AccessProfileDTO {
   id: string;

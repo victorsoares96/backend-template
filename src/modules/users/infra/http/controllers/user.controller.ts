@@ -4,19 +4,19 @@ import { container } from 'tsyringe';
 import {
   CreateUserService,
   Request as CreateRequest,
-} from '@modules/users/services/create-user.service';
-import { EUserStatus } from '@modules/users/utils/enums/user.enum';
-import { InactiveUserService } from '@modules/users/services/inactive-user.service';
-import { RecoverUserService } from '@modules/users/services/recover-user.service';
-import { SoftRemoveUserService } from '@modules/users/services/soft-remove-user.service';
-import { RemoveUserService } from '@modules/users/services/remove-user.service';
-import { UpdateUserService } from '@modules/users/services/update-user.service';
-import { UpdateUserAvatarService } from '@modules/users/services/update-user-avatar.service';
-import { AppError } from '@shared/errors/app-error.error';
-import { EGenericError } from '@shared/utils/enums/errors.enum';
-import { ResetUserPasswordService } from '@modules/users/services/reset-user-password.service';
-import { FindManyUserDTO } from '@modules/users/dtos/find-many-user.dto';
-import { FindManyUserService } from '@modules/users/services/find-many-user.service';
+} from '@/modules/users/services/create-user.service';
+import { EUserStatus } from '@/modules/users/utils/enums/user.enum';
+import { InactiveUserService } from '@/modules/users/services/inactive-user.service';
+import { RecoverUserService } from '@/modules/users/services/recover-user.service';
+import { SoftRemoveUserService } from '@/modules/users/services/soft-remove-user.service';
+import { RemoveUserService } from '@/modules/users/services/remove-user.service';
+import { UpdateUserService } from '@/modules/users/services/update-user.service';
+import { UpdateUserAvatarService } from '@/modules/users/services/update-user-avatar.service';
+import { AppError } from '@/shared/errors/app-error.error';
+import { EGenericError } from '@/shared/utils/enums/errors.enum';
+import { ResetUserPasswordService } from '@/modules/users/services/reset-user-password.service';
+import { FindManyUserDTO } from '@/modules/users/dtos/find-many-user.dto';
+import { FindManyUserService } from '@/modules/users/services/find-many-user.service';
 
 export class UserController {
   public async create(request: Request, response: Response): Promise<Response> {

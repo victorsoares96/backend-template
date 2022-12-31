@@ -1,4 +1,4 @@
-import { AppError } from '@shared/errors/app-error.error';
+import { AppError } from '@/shared/errors/app-error.error';
 import { injectable, inject } from 'tsyringe';
 import { CreatePermissionDTO } from '../dtos/create-permission.dto';
 

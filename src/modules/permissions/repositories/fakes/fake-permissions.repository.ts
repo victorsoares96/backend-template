@@ -1,11 +1,11 @@
 import { validate } from 'class-validator';
 
-import { CreatePermissionDTO } from '@modules/permissions/dtos/create-permission.dto';
-import { PermissionsRepositoryInterface } from '@modules/permissions/repositories/permissions-repository.interface';
-import { AppError } from '@shared/errors/app-error.error';
-import { Permission } from '@modules/permissions/infra/typeorm/entities/permission.entity';
-import { FindOnePermissionDTO } from '@modules/permissions/dtos/find-one-permission.dto';
-import { FindManyPermissionDTO } from '@modules/permissions/dtos/find-many-permission.dto';
+import { CreatePermissionDTO } from '@/modules/permissions/dtos/create-permission.dto';
+import { PermissionsRepositoryInterface } from '@/modules/permissions/repositories/permissions-repository.interface';
+import { AppError } from '@/shared/errors/app-error.error';
+import { Permission } from '@/modules/permissions/infra/typeorm/entities/permission.entity';
+import { FindOnePermissionDTO } from '@/modules/permissions/dtos/find-one-permission.dto';
+import { FindManyPermissionDTO } from '@/modules/permissions/dtos/find-many-permission.dto';
 
 export class FakePermissionsRepository
   implements PermissionsRepositoryInterface

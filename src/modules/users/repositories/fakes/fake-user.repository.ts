@@ -1,9 +1,9 @@
-import { FindManyAccessProfileDTO } from '@modules/access-profiles/dtos/find-many-access-profile.dto';
-import { CreateUserDTO } from '@modules/users/dtos/create-user.dto';
-import { User } from '@modules/users/infra/typeorm/entities/user.entity';
-import { EUserStatus } from '@modules/users/utils/enums/user.enum';
-import { FindOneUserDTO } from '@modules/users/dtos/find-one-user.dto';
-import { UserDTO } from '@modules/users/dtos/user.dto';
+import { FindManyAccessProfileDTO } from '@/modules/access-profiles/dtos/find-many-access-profile.dto';
+import { CreateUserDTO } from '@/modules/users/dtos/create-user.dto';
+import { User } from '@/modules/users/infra/typeorm/entities/user.entity';
+import { EUserStatus } from '@/modules/users/utils/enums/user.enum';
+import { FindOneUserDTO } from '@/modules/users/dtos/find-one-user.dto';
+import { UserDTO } from '@/modules/users/dtos/user.dto';
 import { UsersRepositoryInterface } from '../user-repository.interface';
 
 export class FakeUsersRepository implements UsersRepositoryInterface {

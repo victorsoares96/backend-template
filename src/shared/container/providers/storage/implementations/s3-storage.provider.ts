@@ -3,7 +3,7 @@ import mime from 'mime';
 import path from 'path';
 import aws from 'aws-sdk';
 
-import uploadConfig from '@config/upload.config';
+import uploadConfig from '@/config/upload.config';
 import { StorageProviderInterface } from '../interfaces/storage-provider.interface';
 
 export class S3StorageProvider implements StorageProviderInterface {

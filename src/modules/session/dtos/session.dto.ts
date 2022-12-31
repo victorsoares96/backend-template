@@ -1,4 +1,4 @@
-import { User } from '@modules/users/infra/typeorm/entities/user.entity';
+import { User } from '@/modules/users/infra/typeorm/entities/user.entity';
 
 export interface SessionDTO {
   id: string;

@@ -13,9 +13,9 @@ import {
 } from 'typeorm';
 import { hashSync } from 'bcryptjs';
 
-import { EUserStatus } from '@modules/users/utils/enums/user.enum';
-import { AccessProfile } from '@modules/access-profiles/infra/typeorm/entities/access-profile.entity';
-import { Session } from '@modules/session/infra/typeorm/entities/session.entity';
+import { EUserStatus } from '@/modules/users/utils/enums/user.enum';
+import { AccessProfile } from '@/modules/access-profiles/infra/typeorm/entities/access-profile.entity';
+import { Session } from '@/modules/session/infra/typeorm/entities/session.entity';
 
 @Entity('user')
 export class User {

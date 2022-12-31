@@ -1,4 +1,4 @@
-import { FindOneAccessProfileService } from '@modules/access-profiles/services/find-one-access-profile.service';
+import { FindOneAccessProfileService } from '@/modules/access-profiles/services/find-one-access-profile.service';
 import {
   registerDecorator,
   ValidationOptions,

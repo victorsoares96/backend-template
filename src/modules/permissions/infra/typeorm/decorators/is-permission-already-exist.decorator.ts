@@ -5,7 +5,7 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { container } from 'tsyringe';
-import { FindManyPermissionService } from '@modules/permissions/services/find-many-permission.service';
+import { FindManyPermissionService } from '@/modules/permissions/services/find-many-permission.service';
 
 @ValidatorConstraint({ async: true })
 export class IsPermissionAlreadyExistConstraint

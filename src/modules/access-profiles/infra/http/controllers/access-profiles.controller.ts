@@ -4,14 +4,14 @@ import { container } from 'tsyringe';
 import {
   CreateAccessProfileService,
   Request as CreateRequest,
-} from '@modules/access-profiles/services/create-access-profile.service';
-import { FindManyAccessProfileService } from '@modules/access-profiles/services/find-many-access-profile.service';
-import { InactiveAccessProfileService } from '@modules/access-profiles/services/inactive-access-profile.service';
-import { RecoverAccessProfileService } from '@modules/access-profiles/services/recover-access-profile.service';
-import { RemoveAccessProfileService } from '@modules/access-profiles/services/remove-access-profile.service';
-import { SoftRemoveAccessProfileService } from '@modules/access-profiles/services/soft-remove-access-profile.service';
-import { UpdateAccessProfileService } from '@modules/access-profiles/services/update-access-profile.service';
-import { FindManyAccessProfileDTO } from '@modules/access-profiles/dtos/find-many-access-profile.dto';
+} from '@/modules/access-profiles/services/create-access-profile.service';
+import { FindManyAccessProfileService } from '@/modules/access-profiles/services/find-many-access-profile.service';
+import { InactiveAccessProfileService } from '@/modules/access-profiles/services/inactive-access-profile.service';
+import { RecoverAccessProfileService } from '@/modules/access-profiles/services/recover-access-profile.service';
+import { RemoveAccessProfileService } from '@/modules/access-profiles/services/remove-access-profile.service';
+import { SoftRemoveAccessProfileService } from '@/modules/access-profiles/services/soft-remove-access-profile.service';
+import { UpdateAccessProfileService } from '@/modules/access-profiles/services/update-access-profile.service';
+import { FindManyAccessProfileDTO } from '@/modules/access-profiles/dtos/find-many-access-profile.dto';
 
 export class AccessProfilesController {
   public async create(request: Request, response: Response): Promise<Response> {

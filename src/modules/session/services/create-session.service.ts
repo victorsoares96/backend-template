@@ -1,10 +1,10 @@
 import { injectable, inject } from 'tsyringe';
 
-import { AppError } from '@shared/errors/app-error.error';
+import { AppError } from '@/shared/errors/app-error.error';
 
-import { User } from '@modules/users/infra/typeorm/entities/user.entity';
-import { Error } from '@modules/session/utils/enums/errors.enum';
-import { UsersRepositoryInterface } from '@modules/users/repositories/user-repository.interface';
+import { User } from '@/modules/users/infra/typeorm/entities/user.entity';
+import { Error } from '@/modules/session/utils/enums/errors.enum';
+import { UsersRepositoryInterface } from '@/modules/users/repositories/user-repository.interface';
 import { HashProviderInterface } from '../providers/hash/interfaces/hash-provider.interface';
 import { TokenProviderInterface } from '../providers/token';
 import { SessionDTO } from '../dtos/session.dto';

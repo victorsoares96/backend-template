@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import uploadConfig from '@config/upload.config';
+import uploadConfig from '@/config/upload.config';
 import { StorageProviderInterface } from '../interfaces/storage-provider.interface';
 
 export class DiskStorageProvider implements StorageProviderInterface {
