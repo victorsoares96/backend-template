@@ -1,10 +1,10 @@
 import { injectable, inject } from 'tsyringe';
 import { validate } from 'class-validator';
 
-import { AppError } from '@shared/errors/app-error.error';
-import { AccessProfile } from '@modules/access-profiles/infra/typeorm/entities/access-profile.entity';
-import { EPermissionError } from '@modules/permissions/utils/enums/errors.enum';
-import { PermissionsRepositoryInterface } from '@modules/permissions/repositories/permissions-repository.interface';
+import { AppError } from '@/shared/errors/app-error.error';
+import { AccessProfile } from '@/modules/access-profiles/infra/typeorm/entities/access-profile.entity';
+import { EPermissionError } from '@/modules/permissions/utils/enums/errors.enum';
+import { PermissionsRepositoryInterface } from '@/modules/permissions/repositories/permissions-repository.interface';
 import { AccessProfilesRepositoryInterface } from '../repositories/access-profiles-repository.interface';
 import { EAccessProfileError } from '../utils/enums/errors.enum';
 

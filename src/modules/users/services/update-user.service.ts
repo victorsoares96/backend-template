@@ -1,10 +1,10 @@
 import { validate } from 'class-validator';
 import { injectable, inject } from 'tsyringe';
 
-import { AppError } from '@shared/errors/app-error.error';
-import { User } from '@modules/users/infra/typeorm/entities/user.entity';
-import { AccessProfilesRepositoryInterface } from '@modules/access-profiles/repositories/access-profiles-repository.interface';
-import { EAccessProfileError } from '@modules/access-profiles/utils/enums/errors.enum';
+import { AppError } from '@/shared/errors/app-error.error';
+import { User } from '@/modules/users/infra/typeorm/entities/user.entity';
+import { AccessProfilesRepositoryInterface } from '@/modules/access-profiles/repositories/access-profiles-repository.interface';
+import { EAccessProfileError } from '@/modules/access-profiles/utils/enums/errors.enum';
 import { UsersRepositoryInterface } from '../repositories/user-repository.interface';
 import { EUserError } from '../utils/enums/errors.enum';
 

@@ -1,10 +1,10 @@
 import { EntityRepository, getRepository, Repository } from 'typeorm';
 
 import dayjs from 'dayjs';
-import { SessionRepositoryInterface } from '@modules/session/repositories/session-repository.interface';
-import { CreateSessionDTO } from '@modules/session/dtos/create-session.dto';
-import { SessionDTO } from '@modules/session/dtos/session.dto';
-import { FindOneSessionDTO } from '@modules/session/dtos/find-one-session.dto';
+import { SessionRepositoryInterface } from '@/modules/session/repositories/session-repository.interface';
+import { CreateSessionDTO } from '@/modules/session/dtos/create-session.dto';
+import { SessionDTO } from '@/modules/session/dtos/session.dto';
+import { FindOneSessionDTO } from '@/modules/session/dtos/find-one-session.dto';
 import { Session } from '../entities/session.entity';
 
 @EntityRepository(Session)

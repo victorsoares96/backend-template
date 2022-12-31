@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import { AccessProfilesController } from '@modules/access-profiles/infra/http/controllers/access-profiles.controller';
-import { is } from '@shared/infra/http/middlewares/ensure-authorized.middleware';
-import ensureAuthenticated from '@modules/session/infra/http/middlewares/ensure-authenticated.middleware';
+import { AccessProfilesController } from '@/modules/access-profiles/infra/http/controllers/access-profiles.controller';
+import { is } from '@/shared/infra/http/middlewares/ensure-authorized.middleware';
+import ensureAuthenticated from '@/modules/session/infra/http/middlewares/ensure-authenticated.middleware';
 import {
   CAN_CREATE_ACCESS_PROFILE,
   CAN_INACTIVE_ACCESS_PROFILE,
@@ -11,7 +11,7 @@ import {
   CAN_SOFT_REMOVE_ACCESS_PROFILE,
   CAN_UPDATE_ACCESS_PROFILE,
   CAN_VIEW_ACCESS_PROFILES,
-} from '@modules/access-profiles/utils/enums/access-permissions.enum';
+} from '@/modules/access-profiles/utils/enums/access-permissions.enum';
 
 export const accessProfilesRouter = Router();
 const accessProfilesController = new AccessProfilesController();

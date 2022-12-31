@@ -8,7 +8,9 @@
     "airbnb-base",
     "airbnb-typescript/base",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -17,6 +19,21 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["@typescript-eslint", "prettier"],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+          "alwaysTryTypes": true
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": ["test/**"],
+      "plugins": ["jest"],
+      "extends": ["plugin:jest/recommended"],
+      "rules": { "jest/prefer-expect-assertions": "off" }
+    }
+  ],
   "rules": {
     "prettier/prettier": "error",
     "import/prefer-default-export": "off",
@@ -31,7 +48,6 @@
     "import/no-cycle": "off",
     "class-methods-use-this": "off",
     "func-names": "off",
-    "@typescript-eslint/ban-ts-comment": "warn",
     "no-restricted-syntax": "warn"
   }
 }

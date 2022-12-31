@@ -4,12 +4,12 @@ import { container } from 'tsyringe';
 import {
   CreateSessionService,
   Request as CreateSessionRequest,
-} from '@modules/session/services/create-session.service';
+} from '@/modules/session/services/create-session.service';
 
 import {
   RefreshSessionService,
   Request as RefreshSessionRequest,
-} from '@modules/session/services/refresh-session.service';
+} from '@/modules/session/services/refresh-session.service';
 
 export class SessionController {
   public async authenticate(

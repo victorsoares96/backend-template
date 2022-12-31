@@ -3,46 +3,57 @@ import 'reflect-metadata';
 import express from 'express';
 import { container } from 'tsyringe';
 import 'express-async-errors';
-
 import { Connection } from 'typeorm';
-import uploadConfig from '@config/upload.config';
+import path from 'path';
+import dotenv from 'dotenv';
 
-import connection from '@shared/infra/typeorm';
+import uploadConfig from '@/config/upload.config';
 
-import { PermissionsRepositoryInterface } from '@modules/permissions/repositories/permissions-repository.interface';
-import { PermissionRepository } from '@modules/permissions/infra/typeorm/repositories/permission.repository';
+import connection from '@/shared/infra/typeorm';
 
-import { AccessProfilesRepositoryInterface } from '@modules/access-profiles/repositories/access-profiles-repository.interface';
-import { AccessProfileRepository } from '@modules/access-profiles/infra/typeorm/repositories/access-profile.repository';
+import { PermissionsRepositoryInterface } from '@/modules/permissions/repositories/permissions-repository.interface';
+import { PermissionRepository } from '@/modules/permissions/infra/typeorm/repositories/permission.repository';
 
-import { SessionRepositoryInterface } from '@modules/session/repositories/session-repository.interface';
-import { SessionRepository } from '@modules/session/infra/typeorm/repositories/session.repository';
+import { AccessProfilesRepositoryInterface } from '@/modules/access-profiles/repositories/access-profiles-repository.interface';
+import { AccessProfileRepository } from '@/modules/access-profiles/infra/typeorm/repositories/access-profile.repository';
 
-import { UsersRepositoryInterface } from '@modules/users/repositories/user-repository.interface';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/user.repository';
+import { SessionRepositoryInterface } from '@/modules/session/repositories/session-repository.interface';
+import { SessionRepository } from '@/modules/session/infra/typeorm/repositories/session.repository';
+
+import { UsersRepositoryInterface } from '@/modules/users/repositories/user-repository.interface';
+import { UserRepository } from '@/modules/users/infra/typeorm/repositories/user.repository';
 
 import {
   HashProvider,
   HashProviderInterface,
-} from '@modules/session/providers/hash';
+} from '@/modules/session/providers/hash';
 import {
   TokenProvider,
   TokenProviderInterface,
-} from '@modules/session/providers/token';
+} from '@/modules/session/providers/token';
 
-import { sessionsRouter } from '@modules/session/infra/http/routes/sessions.routes';
-import { usersRouter } from '@modules/users/infra/http/routes/user.routes';
-import { accessProfilesRouter } from '@modules/access-profiles/infra/http/routes/access-profiles.routes';
-import { permissionsRouter } from '@modules/permissions/infra/http/routes/permissions.routes';
+import { sessionsRouter } from '@/modules/session/infra/http/routes/sessions.routes';
+import { usersRouter } from '@/modules/users/infra/http/routes/user.routes';
+import { accessProfilesRouter } from '@/modules/access-profiles/infra/http/routes/access-profiles.routes';
+import { permissionsRouter } from '@/modules/permissions/infra/http/routes/permissions.routes';
 
-import errorHandler from './middlewares/error-handler.middleware';
+import errorMiddleware from './middlewares/error-handler.middleware';
 
 class App {
   public express: express.Application;
 
   public connection: Promise<Connection>;
 
+  private port: string | undefined;
+
+  private database_name: string | undefined;
+
   public constructor() {
+    this.loadEnvironmentVariables();
+
+    this.port = process.env.APP_PORT;
+    this.database_name = process.env.TYPEORM_DATABASE;
+
     this.express = express();
     this.express.use(express.json());
 
@@ -50,11 +61,59 @@ class App {
 
     this.database();
     this.routes();
-    this.middlewares();
+    this.errorHandlerMiddleware();
   }
 
-  private middlewares(): void {
-    this.express.use(errorHandler);
+  private loadEnvironmentVariables(): void {
+    if (process.env.NODE_ENV === 'development') {
+      const envPath = path.resolve(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        '..',
+        '.env.development',
+      );
+      const res = dotenv.config({
+        path: envPath,
+      });
+
+      if (res.error) {
+        throw new Error(
+          '❌  Error when loading the development environment. Search for the .env.development file in the root of the project.',
+        );
+      }
+
+      if (res.parsed) {
+        console.log(`🔥  Development environment loaded: ${envPath}`);
+      }
+    } else {
+      const envPath = path.resolve(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        '..',
+        '.env.production',
+      );
+      const res = dotenv.config({
+        path: envPath,
+      });
+
+      if (res.error) {
+        throw new Error(
+          '❌  Error when loading the production environment. Search for the .env.production file in the root of the project.',
+        );
+      }
+
+      if (res.parsed) {
+        console.log(`🔥  Production environment loaded: ${envPath}`);
+      }
+    }
+  }
+
+  private errorHandlerMiddleware(): void {
+    this.express.use(errorMiddleware);
   }
 
   private tsyringe(): void {
@@ -92,7 +151,7 @@ class App {
   private database(): void {
     this.connection
       .then(() => {
-        console.log(`📦  Connected to ${process.env.DATABASE}!`);
+        console.log(`📦  Connected to ${this.database_name}!`);
         this.startServer();
         this.tsyringe();
       })
@@ -103,8 +162,8 @@ class App {
   }
 
   private startServer(): void {
-    this.express.listen(process.env.PORT || 3333, () => {
-      console.log(`🚀  Server started on port ${process.env.PORT || 3333}!`);
+    this.express.listen(this.port, () => {
+      console.log(`🚀  Server started on port ${this.port}!`);
     });
   }
 

@@ -1,5 +1,5 @@
-import { AppError } from '@shared/errors/app-error.error';
-import { EGenericError } from '@shared/utils/enums/errors.enum';
+import { AppError } from '@/shared/errors/app-error.error';
+import { EGenericError } from '@/shared/utils/enums/errors.enum';
 import { injectable, inject } from 'tsyringe';
 import { FindOnePermissionDTO } from '../dtos/find-one-permission.dto';
 

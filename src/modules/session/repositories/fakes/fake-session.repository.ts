@@ -1,7 +1,7 @@
-import { CreateSessionDTO } from '@modules/session/dtos/create-session.dto';
-import { FindOneSessionDTO } from '@modules/session/dtos/find-one-session.dto';
-import { SessionDTO } from '@modules/session/dtos/session.dto';
-import { Session } from '@modules/session/infra/typeorm/entities/session.entity';
+import { CreateSessionDTO } from '@/modules/session/dtos/create-session.dto';
+import { FindOneSessionDTO } from '@/modules/session/dtos/find-one-session.dto';
+import { SessionDTO } from '@/modules/session/dtos/session.dto';
+import { Session } from '@/modules/session/infra/typeorm/entities/session.entity';
 import dayjs from 'dayjs';
 import { SessionRepositoryInterface } from '../session-repository.interface';
 

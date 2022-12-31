@@ -1,4 +1,4 @@
-import { AppError } from '@shared/errors/app-error.error';
+import { AppError } from '@/shared/errors/app-error.error';
 import { CreatePermissionService } from './create-permission.service';
 import { FakePermissionsRepository } from '../repositories/fakes/fake-permissions.repository';
 

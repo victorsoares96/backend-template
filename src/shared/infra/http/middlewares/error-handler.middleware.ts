@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { AppError } from '@shared/errors/app-error.error';
-import { EGenericError } from '@shared/utils/enums/errors.enum';
+import { AppError } from '@/shared/errors/app-error.error';
+import { EGenericError } from '@/shared/utils/enums/errors.enum';
 
 export default function errorHandler(
   error: Error,

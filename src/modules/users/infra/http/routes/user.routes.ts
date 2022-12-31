@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 
-import uploadConfig from '@config/upload.config';
+import uploadConfig from '@/config/upload.config';
 import {
   CAN_REMOVE_USER,
   CAN_SOFT_REMOVE_USER,
@@ -9,10 +9,10 @@ import {
   CAN_UPDATE_USER_AVATAR,
   CAN_VIEW_USER,
   CAN_RECOVER_USER,
-} from '@modules/users/utils/enums/access-permissions.enum';
-import ensureAuthenticated from '@modules/session/infra/http/middlewares/ensure-authenticated.middleware';
+} from '@/modules/users/utils/enums/access-permissions.enum';
+import ensureAuthenticated from '@/modules/session/infra/http/middlewares/ensure-authenticated.middleware';
 
-import { is } from '@shared/infra/http/middlewares/ensure-authorized.middleware';
+import { is } from '@/shared/infra/http/middlewares/ensure-authorized.middleware';
 import { UserController } from '../controllers/user.controller';
 
 export const usersRouter = Router();

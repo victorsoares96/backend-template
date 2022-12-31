@@ -1,9 +1,9 @@
 import { injectable, inject } from 'tsyringe';
 
-import { AppError } from '@shared/errors/app-error.error';
-
 import dayjs from 'dayjs';
-import { Error } from '@modules/session/utils/enums/errors.enum';
+import { AppError } from '@/shared/errors/app-error.error';
+
+import { Error } from '@/modules/session/utils/enums/errors.enum';
 import { TokenProviderInterface } from '../providers/token';
 import { SessionDTO } from '../dtos/session.dto';
 import { SessionRepositoryInterface } from '../repositories/session-repository.interface';

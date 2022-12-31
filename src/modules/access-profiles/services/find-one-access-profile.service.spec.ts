@@ -1,7 +1,7 @@
-import { FakePermissionsRepository } from '@modules/permissions/repositories/fakes/fake-permissions.repository';
-import { CreatePermissionService } from '@modules/permissions/services/create-permission.service';
-import { AppError } from '@shared/errors/app-error.error';
-import { EGenericError } from '@shared/utils/enums/errors.enum';
+import { FakePermissionsRepository } from '@/modules/permissions/repositories/fakes/fake-permissions.repository';
+import { CreatePermissionService } from '@/modules/permissions/services/create-permission.service';
+import { AppError } from '@/shared/errors/app-error.error';
+import { EGenericError } from '@/shared/utils/enums/errors.enum';
 import { FakeAccessProfileRepository } from '../repositories/fakes/fake-access-profiles.repository';
 import { CreateAccessProfileService } from './create-access-profile.service';
 import { FindOneAccessProfileService } from './find-one-access-profile.service';

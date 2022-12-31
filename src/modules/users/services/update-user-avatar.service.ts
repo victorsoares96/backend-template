@@ -1,9 +1,9 @@
 import { injectable, inject } from 'tsyringe';
 
-import { AppError } from '@shared/errors/app-error.error';
-import { User } from '@modules/users/infra/typeorm/entities/user.entity';
-import { EUserError } from '@modules/users/utils/enums/errors.enum';
-import { StorageProviderInterface } from '@shared/container/providers/storage/interfaces/storage-provider.interface';
+import { AppError } from '@/shared/errors/app-error.error';
+import { User } from '@/modules/users/infra/typeorm/entities/user.entity';
+import { EUserError } from '@/modules/users/utils/enums/errors.enum';
+import { StorageProviderInterface } from '@/shared/container/providers/storage/interfaces/storage-provider.interface';
 import { UsersRepositoryInterface } from '../repositories/user-repository.interface';
 
 interface Request {

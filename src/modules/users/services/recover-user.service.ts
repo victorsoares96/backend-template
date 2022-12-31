@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
-import { AppError } from '@shared/errors/app-error.error';
-import { EUserStatus } from '@modules/users/utils/enums/user.enum';
+import { AppError } from '@/shared/errors/app-error.error';
+import { EUserStatus } from '@/modules/users/utils/enums/user.enum';
 import { UsersRepositoryInterface } from '../repositories/user-repository.interface';
 import { EUserError } from '../utils/enums/errors.enum';
 

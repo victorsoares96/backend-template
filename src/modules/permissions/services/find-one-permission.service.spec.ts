@@ -1,5 +1,5 @@
-import { AppError } from '@shared/errors/app-error.error';
-import { EGenericError } from '@shared/utils/enums/errors.enum';
+import { AppError } from '@/shared/errors/app-error.error';
+import { EGenericError } from '@/shared/utils/enums/errors.enum';
 import { CreatePermissionService } from './create-permission.service';
 import { FakePermissionsRepository } from '../repositories/fakes/fake-permissions.repository';
 import { FindOnePermissionService } from './find-one-permission.service';

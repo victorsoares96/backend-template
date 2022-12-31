@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { CreatePermissionService } from '@modules/permissions/services/create-permission.service';
-import { FindManyPermissionService } from '@modules/permissions/services/find-many-permission.service';
+import { CreatePermissionService } from '@/modules/permissions/services/create-permission.service';
+import { FindManyPermissionService } from '@/modules/permissions/services/find-many-permission.service';
 
 export class PermissionsController {
   public async create(request: Request, response: Response): Promise<Response> {

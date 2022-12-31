@@ -6,17 +6,17 @@ import {
   Repository,
 } from 'typeorm';
 
+import { validate } from 'class-validator';
 import {
   FindOptions,
   UsersRepositoryInterface,
-} from '@modules/users/repositories/user-repository.interface';
-import { User } from '@modules/users/infra/typeorm/entities/user.entity';
-import { CreateUserDTO } from '@modules/users/dtos/create-user.dto';
-import { validate } from 'class-validator';
-import { AppError } from '@shared/errors/app-error.error';
-import { UserDTO } from '@modules/users/dtos/user.dto';
-import { FindOneUserDTO } from '@modules/users/dtos/find-one-user.dto';
-import { FindManyUserDTO } from '@modules/users/dtos/find-many-user.dto';
+} from '@/modules/users/repositories/user-repository.interface';
+import { User } from '@/modules/users/infra/typeorm/entities/user.entity';
+import { CreateUserDTO } from '@/modules/users/dtos/create-user.dto';
+import { AppError } from '@/shared/errors/app-error.error';
+import { UserDTO } from '@/modules/users/dtos/user.dto';
+import { FindOneUserDTO } from '@/modules/users/dtos/find-one-user.dto';
+import { FindManyUserDTO } from '@/modules/users/dtos/find-many-user.dto';
 
 @EntityRepository(User)
 export class UserRepository implements UsersRepositoryInterface {

@@ -1,9 +1,9 @@
 import { injectable, inject } from 'tsyringe';
 
-import { AppError } from '@shared/errors/app-error.error';
-import { EAccessProfileError } from '@modules/access-profiles/utils/enums/errors.enum';
+import { AppError } from '@/shared/errors/app-error.error';
+import { EAccessProfileError } from '@/modules/access-profiles/utils/enums/errors.enum';
 
-import { AccessProfilesRepositoryInterface } from '@modules/access-profiles/repositories/access-profiles-repository.interface';
+import { AccessProfilesRepositoryInterface } from '@/modules/access-profiles/repositories/access-profiles-repository.interface';
 import { User } from '../infra/typeorm/entities/user.entity';
 import { UsersRepositoryInterface } from '../repositories/user-repository.interface';
 import { EUserError } from '../utils/enums/errors.enum';

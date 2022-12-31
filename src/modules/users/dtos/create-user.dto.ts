@@ -1,4 +1,4 @@
-import { AccessProfile } from '@modules/access-profiles/infra/typeorm/entities/access-profile.entity';
+import { AccessProfile } from '@/modules/access-profiles/infra/typeorm/entities/access-profile.entity';
 
 export interface CreateUserDTO {
   firstName: string;

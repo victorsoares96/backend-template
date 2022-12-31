@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { injectable, inject } from 'tsyringe';
 
-import { AppError } from '@shared/errors/app-error.error';
-import { EAccessProfileStatus } from '@modules/access-profiles/utils/enums/status.enum';
+import { AppError } from '@/shared/errors/app-error.error';
+import { EAccessProfileStatus } from '@/modules/access-profiles/utils/enums/status.enum';
 import { AccessProfilesRepositoryInterface } from '../repositories/access-profiles-repository.interface';
 import { EAccessProfileError } from '../utils/enums/errors.enum';
 

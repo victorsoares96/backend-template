@@ -3,11 +3,11 @@ import { getRepository, ILike, In, Repository } from 'typeorm';
 import {
   AccessProfilesRepositoryInterface,
   FindOptions,
-} from '@modules/access-profiles/repositories/access-profiles-repository.interface';
-import { CreateAccessProfileDTO } from '@modules/access-profiles/dtos/create-access-profile.dto';
-import { AccessProfileDTO } from '@modules/access-profiles/dtos/access-profile.dto';
-import { FindManyAccessProfileDTO } from '@modules/access-profiles/dtos/find-many-access-profile.dto';
-import { FindOneAccessProfileDTO } from '@modules/access-profiles/dtos/find-one-access-profile.dto';
+} from '@/modules/access-profiles/repositories/access-profiles-repository.interface';
+import { CreateAccessProfileDTO } from '@/modules/access-profiles/dtos/create-access-profile.dto';
+import { AccessProfileDTO } from '@/modules/access-profiles/dtos/access-profile.dto';
+import { FindManyAccessProfileDTO } from '@/modules/access-profiles/dtos/find-many-access-profile.dto';
+import { FindOneAccessProfileDTO } from '@/modules/access-profiles/dtos/find-one-access-profile.dto';
 import { AccessProfile } from '../entities/access-profile.entity';
 
 export class AccessProfileRepository

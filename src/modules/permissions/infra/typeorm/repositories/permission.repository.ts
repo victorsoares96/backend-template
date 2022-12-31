@@ -1,11 +1,11 @@
 import { getRepository, ILike, Repository } from 'typeorm';
 import { validate } from 'class-validator';
 
-import { CreatePermissionDTO } from '@modules/permissions/dtos/create-permission.dto';
-import { PermissionsRepositoryInterface } from '@modules/permissions/repositories/permissions-repository.interface';
-import { AppError } from '@shared/errors/app-error.error';
-import { FindOnePermissionDTO } from '@modules/permissions/dtos/find-one-permission.dto';
-import { FindManyPermissionDTO } from '@modules/permissions/dtos/find-many-permission.dto';
+import { CreatePermissionDTO } from '@/modules/permissions/dtos/create-permission.dto';
+import { PermissionsRepositoryInterface } from '@/modules/permissions/repositories/permissions-repository.interface';
+import { AppError } from '@/shared/errors/app-error.error';
+import { FindOnePermissionDTO } from '@/modules/permissions/dtos/find-one-permission.dto';
+import { FindManyPermissionDTO } from '@/modules/permissions/dtos/find-many-permission.dto';
 import { Permission } from '../entities/permission.entity';
 
 export class PermissionRepository implements PermissionsRepositoryInterface {

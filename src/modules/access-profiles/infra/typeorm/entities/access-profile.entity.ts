@@ -9,9 +9,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { EAccessProfileStatus } from '@modules/access-profiles/utils/enums/status.enum';
-import { Permission } from '@modules/permissions/infra/typeorm/entities/permission.entity';
-import { User } from '@modules/users/infra/typeorm/entities/user.entity';
+import { EAccessProfileStatus } from '@/modules/access-profiles/utils/enums/status.enum';
+import { Permission } from '@/modules/permissions/infra/typeorm/entities/permission.entity';
+import { User } from '@/modules/users/infra/typeorm/entities/user.entity';
 
 @Entity('access_profile')
 export class AccessProfile {

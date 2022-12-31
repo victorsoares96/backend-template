@@ -1,9 +1,9 @@
-import { FakeAccessProfileRepository } from '@modules/access-profiles/repositories/fakes/fake-access-profiles.repository';
-import { CreateAccessProfileService } from '@modules/access-profiles/services/create-access-profile.service';
-import { FakePermissionsRepository } from '@modules/permissions/repositories/fakes/fake-permissions.repository';
-import { CreatePermissionService } from '@modules/permissions/services/create-permission.service';
-import { FakeStorageProvider } from '@shared/container/providers/storage/fakes/fake-storage.provider';
-import { AppError } from '@shared/errors/app-error.error';
+import { FakeAccessProfileRepository } from '@/modules/access-profiles/repositories/fakes/fake-access-profiles.repository';
+import { CreateAccessProfileService } from '@/modules/access-profiles/services/create-access-profile.service';
+import { FakePermissionsRepository } from '@/modules/permissions/repositories/fakes/fake-permissions.repository';
+import { CreatePermissionService } from '@/modules/permissions/services/create-permission.service';
+import { FakeStorageProvider } from '@/shared/container/providers/storage/fakes/fake-storage.provider';
+import { AppError } from '@/shared/errors/app-error.error';
 import { FakeUsersRepository } from '../repositories/fakes/fake-user.repository';
 import { EUserError } from '../utils/enums/errors.enum';
 import { EUserStatus } from '../utils/enums/user.enum';
