@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 
 import uploadConfig from '@/config/upload.config';
 
-import connection from '@/shared/infra/typeorm';
+import connection from '@/shared/infra/typeorm/data-source';
 
 import { PermissionsRepositoryInterface } from '@/modules/permissions/repositories/permissions-repository.interface';
 import { PermissionRepository } from '@/modules/permissions/infra/typeorm/repositories/permission.repository';
