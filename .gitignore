@@ -16,7 +16,6 @@ package-lock.json
 
 # Environment:
 .env
-.env.production
 
 # DS_Store:
 .DS_Store
