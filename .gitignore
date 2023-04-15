@@ -12,7 +12,7 @@ dist/*
 # Misc:
 tmp/*
 !tmp/.gitkeep
-package-lock.json
+yarn.lock
 
 # Environment:
 .env
