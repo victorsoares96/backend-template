@@ -48,6 +48,12 @@
     "import/no-cycle": "off",
     "class-methods-use-this": "off",
     "func-names": "off",
-    "no-restricted-syntax": "warn"
+    "no-restricted-syntax": "warn",
+    "@typescript-eslint/no-empty-function": [
+      "error",
+      {
+        "allow": ["private-constructors"]
+      }
+    ]
   }
 }

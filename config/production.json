@@ -1,0 +1,14 @@
+{
+  "APP_PORT": 4000,
+  "DATABASE": {
+    "HOST": "127.0.0.1",
+    "USERNAME": "postgres",
+    "PASSWORD": "postgres",
+    "NAME": "backend_template",
+    "PORT": 15432,
+    "ENTITIES": "dist/modules/**/infra/typeorm/entities/*.entity.js",
+    "MIGRATIONS": "dist/shared/infra/typeorm/migrations/*.js",
+    "ENTITIES_DIR": "dist/modules/**/infra/typeorm/entities",
+    "MIGRATIONS_DIR": "dist/shared/infra/typeorm/migrations"
+  }
+}
