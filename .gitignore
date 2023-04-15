@@ -12,11 +12,10 @@ dist/*
 # Misc:
 tmp/*
 !tmp/.gitkeep
-package-lock.json
+yarn.lock
 
 # Environment:
 .env
-.env.production
 
 # DS_Store:
 .DS_Store
