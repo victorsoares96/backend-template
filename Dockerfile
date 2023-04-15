@@ -1,7 +1,6 @@
 FROM node:18 AS build
 WORKDIR /src
 COPY package*.json .env.production ./
-RUN mv .env.production .env
 RUN npm pkg set scripts.prepare='true' && npm install
 COPY . .
 RUN npm run build
