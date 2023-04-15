@@ -27,7 +27,7 @@
     "get_db_backup-id": "node ./src/scripts/get_db_backup-id.js"
   },
   "dependencies": {
-    "aws-sdk": "2.1287.0",
+    "aws-sdk": "2.1359.0",
     "bcryptjs": "2.4.3",
     "class-transformer": "0.5.1",
     "class-validator": "0.13.1",
