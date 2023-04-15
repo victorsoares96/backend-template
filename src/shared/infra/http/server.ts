@@ -3,46 +3,57 @@ import 'reflect-metadata';
 import express from 'express';
 import { container } from 'tsyringe';
 import 'express-async-errors';
-
 import { Connection } from 'typeorm';
-import uploadConfig from '@config/upload';
+import path from 'path';
+import dotenv from 'dotenv';
 
-import connection from '@shared/infra/typeorm';
+import uploadConfig from '@/config/upload.config';
 
-import { PermissionsRepositoryMethods } from '@modules/permissions/repositories/PermissionsRepositoryMethods';
-import { PermissionRepository } from '@modules/permissions/infra/typeorm/repositories/PermissionRepository';
+import connection from '@/shared/infra/typeorm';
 
-import { AccessProfilesRepositoryMethods } from '@modules/accessProfiles/repositories/AccessProfilesRepositoryMethods';
-import { AccessProfileRepository } from '@modules/accessProfiles/infra/typeorm/repositories/AccessProfileRepository';
+import { PermissionsRepositoryInterface } from '@/modules/permissions/repositories/permissions-repository.interface';
+import { PermissionRepository } from '@/modules/permissions/infra/typeorm/repositories/permission.repository';
 
-import { SessionRepositoryMethods } from '@modules/session/repositories/SessionRepositoryMethods';
-import { SessionRepository } from '@modules/session/infra/typeorm/repositories/SessionRepository';
+import { AccessProfilesRepositoryInterface } from '@/modules/access-profiles/repositories/access-profiles-repository.interface';
+import { AccessProfileRepository } from '@/modules/access-profiles/infra/typeorm/repositories/access-profile.repository';
 
-import { UsersRepositoryMethods } from '@modules/users/repositories/UsersRepositoryMethods';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
+import { SessionRepositoryInterface } from '@/modules/session/repositories/session-repository.interface';
+import { SessionRepository } from '@/modules/session/infra/typeorm/repositories/session.repository';
+
+import { UsersRepositoryInterface } from '@/modules/users/repositories/user-repository.interface';
+import { UserRepository } from '@/modules/users/infra/typeorm/repositories/user.repository';
 
 import {
-  BCryptHashProvider,
-  HashProviderMethods,
-} from '@modules/session/providers/HashProvider';
+  HashProvider,
+  HashProviderInterface,
+} from '@/modules/session/providers/hash';
 import {
   TokenProvider,
-  TokenProviderMethods,
-} from '@modules/session/providers/TokenProvider';
+  TokenProviderInterface,
+} from '@/modules/session/providers/token';
 
-import { sessionsRouter } from '@modules/session/infra/http/routes/sessions.routes';
-import { usersRouter } from '@modules/users/infra/http/routes/users.routes';
-import { accessProfilesRouter } from '@modules/accessProfiles/infra/http/routes/access-profiles.routes';
-import { permissionsRouter } from '@modules/permissions/infra/http/routes/permissions.routes';
+import { sessionsRouter } from '@/modules/session/infra/http/routes/sessions.routes';
+import { usersRouter } from '@/modules/users/infra/http/routes/user.routes';
+import { accessProfilesRouter } from '@/modules/access-profiles/infra/http/routes/access-profiles.routes';
+import { permissionsRouter } from '@/modules/permissions/infra/http/routes/permissions.routes';
 
-import errorHandler from './middlewares/errorHandler';
+import errorMiddleware from './middlewares/error-handler.middleware';
 
 class App {
   public express: express.Application;
 
   public connection: Promise<Connection>;
 
+  private port: string | undefined;
+
+  private database_name: string | undefined;
+
   public constructor() {
+    this.loadEnvironmentVariables();
+
+    this.port = process.env.APP_PORT;
+    this.database_name = process.env.TYPEORM_DATABASE;
+
     this.express = express();
     this.express.use(express.json());
 
@@ -50,40 +61,88 @@ class App {
 
     this.database();
     this.routes();
-    this.middlewares();
+    this.errorHandlerMiddleware();
   }
 
-  private middlewares(): void {
-    this.express.use(errorHandler);
+  private loadEnvironmentVariables(): void {
+    if (process.env.NODE_ENV === 'development') {
+      const envPath = path.resolve(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        '..',
+        '.env.development',
+      );
+      const res = dotenv.config({
+        path: envPath,
+      });
+
+      if (res.error) {
+        throw new Error(
+          '❌  Error when loading the development environment. Search for the .env.development file in the root of the project.',
+        );
+      }
+
+      if (res.parsed) {
+        console.log(`🔥  Development environment loaded: ${envPath}`);
+      }
+    } else {
+      const envPath = path.resolve(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        '..',
+        '.env.production',
+      );
+      const res = dotenv.config({
+        path: envPath,
+      });
+
+      if (res.error) {
+        throw new Error(
+          '❌  Error when loading the production environment. Search for the .env.production file in the root of the project.',
+        );
+      }
+
+      if (res.parsed) {
+        console.log(`🔥  Production environment loaded: ${envPath}`);
+      }
+    }
+  }
+
+  private errorHandlerMiddleware(): void {
+    this.express.use(errorMiddleware);
   }
 
   private tsyringe(): void {
-    container.registerSingleton<PermissionsRepositoryMethods>(
+    container.registerSingleton<PermissionsRepositoryInterface>(
       'PermissionsRepository',
       PermissionRepository,
     );
 
-    container.registerSingleton<AccessProfilesRepositoryMethods>(
+    container.registerSingleton<AccessProfilesRepositoryInterface>(
       'AccessProfilesRepository',
       AccessProfileRepository,
     );
 
-    container.registerSingleton<UsersRepositoryMethods>(
+    container.registerSingleton<UsersRepositoryInterface>(
       'UsersRepository',
       UserRepository,
     );
 
-    container.registerSingleton<SessionRepositoryMethods>(
+    container.registerSingleton<SessionRepositoryInterface>(
       'SessionRepository',
       SessionRepository,
     );
 
-    container.registerSingleton<HashProviderMethods>(
+    container.registerSingleton<HashProviderInterface>(
       'HashProvider',
-      BCryptHashProvider,
+      HashProvider,
     );
 
-    container.registerSingleton<TokenProviderMethods>(
+    container.registerSingleton<TokenProviderInterface>(
       'TokenProvider',
       TokenProvider,
     );
@@ -92,7 +151,7 @@ class App {
   private database(): void {
     this.connection
       .then(() => {
-        console.log(`📦  Connected to ${process.env.DATABASE}!`);
+        console.log(`📦  Connected to ${this.database_name}!`);
         this.startServer();
         this.tsyringe();
       })
@@ -103,18 +162,18 @@ class App {
   }
 
   private startServer(): void {
-    this.express.listen(process.env.PORT || 3333, () => {
-      console.log(`🚀  Server started on port ${process.env.PORT || 3333}!`);
+    this.express.listen(this.port, () => {
+      console.log(`🚀  Server started on port ${this.port}!`);
     });
   }
 
   private routes(): void {
     this.express.use('/files', express.static(uploadConfig.uploadsFolder));
 
-    this.express.use(sessionsRouter);
-    this.express.use(usersRouter);
-    this.express.use(accessProfilesRouter);
-    this.express.use(permissionsRouter);
+    this.express.use('/api/session', sessionsRouter);
+    this.express.use('/api/user', usersRouter);
+    this.express.use('/api/access-profile', accessProfilesRouter);
+    this.express.use('/api/permission', permissionsRouter);
   }
 }
 
