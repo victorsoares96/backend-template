@@ -1,11 +1,11 @@
-FROM node:18 AS build
+FROM node:19 AS build
 WORKDIR /src
 COPY package*.json .env.production ./
 RUN npm pkg set scripts.prepare='true' && npm install
 COPY . .
 RUN npm run build
 
-FROM node:18
+FROM node:19
 WORKDIR /app
 COPY package*.json .env.production ./
 RUN npm pkg set scripts.prepare='true' && npm install --production
