@@ -1,0 +1,10 @@
+{
+  "database": {
+    "type": "sqlite",
+    "host": "",
+    "port": 0,
+    "username": "",
+    "password": "",
+    "name": "serverless_express_template"
+  }
+}
