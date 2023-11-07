@@ -43,7 +43,7 @@
     "typeorm": "0.2.38"
   },
   "devDependencies": {
-    "@types/bcryptjs": "2.4.2",
+    "@types/bcryptjs": "2.4.6",
     "@types/express": "4.17.17",
     "@types/jest": "29.5.1",
     "@types/jsonwebtoken": "9.0.1",
