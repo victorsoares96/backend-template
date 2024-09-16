@@ -74,7 +74,7 @@
     "express-fileupload": "1.5.0",
     "jsonwebtoken": "9.0.2",
     "mime-types": "^2.1.35",
-    "mysql2": "3.10.0",
+    "mysql2": "3.11.3",
     "node-cache": "5.1.2",
     "reflect-metadata": "0.2.2",
     "sharp": "^0.33.4",
